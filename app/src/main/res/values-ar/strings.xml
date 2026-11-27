@@ -541,6 +541,8 @@
     <string name="logs_menu_refresh">إنعاش</string>
     <string name="logs_menu_search">البحث في السجلات</string>
     <string name="logs_menu_send">ارسال السجلات بواسطة البريد الالكتروني</string>
+    <string name="logs_menu_share">مُشارَكة</string>
+    <string name="logs_open_in_files">فتح في تطبيق الملفات</string>
     <string name="logs_status_filtered">سجلات: %1$d كيلو بايت، مطابقة الإستعلام %2$d \ %3$d خلال %4$d جزء من الثانية</string>
     <string name="logs_status_loading">التحميل جارٍ…</string>
     <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون عامل تصفية</string>

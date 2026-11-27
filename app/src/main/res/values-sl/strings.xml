@@ -470,6 +470,8 @@
     <string name="logs_menu_refresh">Osveži</string>
     <string name="logs_menu_search">Preišči dnevnike</string>
     <string name="logs_menu_send">Pošlji dnevnike po elektronski pošti</string>
+    <string name="logs_menu_share">Souporaba</string>
+    <string name="logs_open_in_files">Odpri datoteko v mapi</string>
     <string name="logs_status_filtered">Dnevniki: %1$d kB, poizvedba kaže na %2$d / %3$d zadetkov v %4$d ms</string>
     <string name="logs_status_loading">Poteka nalaganje …</string>
     <string name="logs_status_not_filtered">Dnevniki: %1$d kB, brez filtra</string>

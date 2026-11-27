@@ -534,6 +534,8 @@
     <string name="logs_menu_refresh">새로 고침</string>
     <string name="logs_menu_search">로그 검색</string>
     <string name="logs_menu_send">이메일로 로그 보내기</string>
+    <string name="logs_menu_share">공유하기</string>
+    <string name="logs_open_in_files">파일에서 열기</string>
     <string name="logs_status_filtered">로그: %1$d kB, 쿼리가 %3$d개 중에서 %2$d개 를 찾음, 소요시간 %4$d ms</string>
     <string name="logs_status_loading">불러오는 중…</string>
     <string name="logs_status_not_filtered">기록: %1$dkB, 필터 없음</string>

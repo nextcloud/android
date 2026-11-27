@@ -467,6 +467,8 @@
     <string name="logs_menu_refresh">Опресни</string>
     <string name="logs_menu_search">Търсене в регистрите</string>
     <string name="logs_menu_send">Изпращане на журнали по имейл</string>
+    <string name="logs_menu_share">Споделяне</string>
+    <string name="logs_open_in_files">Отваряне във файлове</string>
     <string name="logs_status_filtered">Журнали:%1$d kB, заявката съвпада%2$d /%3$d в%4$d ms</string>
     <string name="logs_status_loading">Зареждане…</string>
     <string name="logs_status_not_filtered">Журнали: %1$d kB, без филтър</string>

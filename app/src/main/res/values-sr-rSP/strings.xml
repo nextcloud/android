@@ -317,6 +317,7 @@
     <string name="logs_menu_delete">Obriši zapisnike</string>
     <string name="logs_menu_refresh">Osveži</string>
     <string name="logs_menu_search">Pretraži zapisnike</string>
+    <string name="logs_menu_share">Deli</string>
     <string name="logs_status_filtered">Zapisnici: %1$d kB, upit je pronašao %2$d/%3$d za %4$dms</string>
     <string name="logs_status_loading">Učitavam…</string>
     <string name="logs_status_not_filtered">Zapisnici: %1$d kB, bez filtriranja</string>

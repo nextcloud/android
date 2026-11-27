@@ -444,6 +444,7 @@
     <string name="logs_menu_refresh">Actualizar</string>
     <string name="logs_menu_search">Buscar registros</string>
     <string name="logs_menu_send">Enviar registros por correo electrónico</string>
+    <string name="logs_open_in_files">Abrir en archivos</string>
     <string name="logs_status_filtered">Registros: %1$d kB, la consulta coincidió con %2$d / %3$d en %4$d ms</string>
     <string name="logs_status_loading">Cargando...</string>
     <string name="logs_status_not_filtered">Registros: %1$d kB, sin filtro</string>
