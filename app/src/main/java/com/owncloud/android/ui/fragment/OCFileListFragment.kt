@@ -769,7 +769,7 @@ open class OCFileListFragment :
             fileDisplayActivity != null && fileDisplayActivity.canPreviewInMediaPager(file) ->
                 fileDisplayActivity.previewImageWithSearchContext(file, isSearchFragment, currentSearchType, sourceView)
 
-            file.isDown && fileDisplayActivity != null ->
+            file.isDown && fileDisplayActivity != null && !canOpenInDirectEditor(file) ->
                 fileDisplayActivity.previewFile(
                     file,
                     object : CompletionCallback {
@@ -811,7 +811,7 @@ open class OCFileListFragment :
                 fileDisplayActivity.startAudioPreview(file, true, true)
             }
 
-            webViewAvailable && hasTextEditor(file) && !file.isEncrypted ->
+            canOpenInDirectEditor(file) ->
                 TextEditorWebView.startTextEditor(file, context)
 
             canOpenAsRichDocument(file, webViewAvailable) ->
@@ -827,6 +827,12 @@ open class OCFileListFragment :
     }
 
     private fun hasTextEditor(file: OCFile): Boolean = editorUtils.getEditor(accountManager.user, file.mimeType) != null
+
+    private fun canOpenInDirectEditor(file: OCFile): Boolean = isAccountManagerInitialized() &&
+        context?.isWebViewAvailable() == true &&
+        hasTextEditor(file) &&
+        !file.isEncrypted &&
+        (activity as? FileActivity)?.connectivityService?.isInternetWalled() == false
 
     private fun canOpenAsRichDocument(file: OCFile, webViewAvailable: Boolean): Boolean {
         if (!webViewAvailable) return false
