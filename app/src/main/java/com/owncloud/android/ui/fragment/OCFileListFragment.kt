@@ -831,7 +831,8 @@ open class OCFileListFragment :
     private fun canOpenInDirectEditor(file: OCFile): Boolean = isAccountManagerInitialized() &&
         context?.isWebViewAvailable() == true &&
         hasTextEditor(file) &&
-        !file.isEncrypted
+        !file.isEncrypted &&
+        (activity as? FileActivity)?.connectivityService?.isInternetWalled() == false
 
     private fun canOpenAsRichDocument(file: OCFile, webViewAvailable: Boolean): Boolean {
         if (!webViewAvailable) return false
