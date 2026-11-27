@@ -13,6 +13,11 @@ import com.owncloud.android.lib.common.network.WebdavEntry.MountType
 import com.owncloud.android.lib.resources.files.model.FileLockType
 
 object FileLockingHelper {
+    /**
+     * Group folders and external storage report the viewing user as file owner, so every user with access would
+     * pass the owner check. The server ignores ownership on these mounts too, see `$ignoreFileOwnership` in
+     * `LockService.canUnlock` of the files_lock app.
+     */
     private val mountTypesWithoutFileOwnership = setOf(MountType.GROUP, MountType.EXTERNAL)
 
     /**
@@ -32,8 +37,6 @@ object FileLockingHelper {
      * - The file owner, for every lock type. An admin who shares a file can unlock a lock the recipient set.
      * - The lock owner, for their own manual or token lock. The recipient can unlock the lock they set.
      * - Nobody else. Another user the file is shared with cannot unlock it.
-     *
-     * Group folders and external storage report the viewing user as file owner, so ownership does not count there.
      */
     @JvmStatic
     fun canUserUnlockFile(userId: String, file: OCFile): Boolean {
