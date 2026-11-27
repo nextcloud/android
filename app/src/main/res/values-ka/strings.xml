@@ -448,6 +448,7 @@
     <string name="logs_menu_refresh">Refresh</string>
     <string name="logs_menu_search">Search logs</string>
     <string name="logs_menu_send">Send logs by email</string>
+    <string name="logs_menu_share">გაზიარება</string>
     <string name="logs_status_filtered">Logs: %1$d kB, query matched %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Loading…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, no filter</string>

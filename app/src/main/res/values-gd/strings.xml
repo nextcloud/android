@@ -349,6 +349,7 @@
     <string name="logs_menu_refresh">Ath-nuadhaich</string>
     <string name="logs_menu_search">Lorg sna logaichean</string>
     <string name="logs_menu_send">Cuir logaichean air a’ phost-d</string>
+    <string name="logs_menu_share">Co-roinn</string>
     <string name="logs_status_filtered">Logaichean: %1$d kB, fhuaras %2$d / %3$d freagairt(ean) am broinn %4$d ms</string>
     <string name="logs_status_loading">’Ga luchdadh…</string>
     <string name="logs_status_not_filtered">Logaichean: %1$d kB, gun chriathrag</string>

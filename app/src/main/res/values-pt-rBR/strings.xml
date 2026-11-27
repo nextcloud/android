@@ -678,6 +678,8 @@
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_menu_search">Pesquisar logs</string>
     <string name="logs_menu_send">Enviar registros por e-mail </string>
+    <string name="logs_menu_share">Compartilhar</string>
+    <string name="logs_open_in_files">Abrir em arquivos</string>
     <string name="logs_status_filtered">Logs: %1$d kB, pesquisa confere %2$d / %3$d em %4$d ms</string>
     <string name="logs_status_loading">Carregando…</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, sem filtro</string>
