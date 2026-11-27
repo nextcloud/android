@@ -19,7 +19,6 @@ import com.nextcloud.client.preferences.DarkMode
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogThemeSelectionBinding
 import com.owncloud.android.ui.dialog.extensions.themeButtons
-import com.owncloud.android.ui.model.ExtendedSettingsActivityDialog
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -86,14 +85,12 @@ class ThemeSelectionDialog :
         preferences.setDarkThemeMode(darkMode)
         darkMode.setTheme()
 
-        setFragmentResult(
-            ExtendedSettingsActivityDialog.ThemeSelection.key,
-            bundleOf(ExtendedSettingsActivityDialog.ThemeSelection.key to darkMode.name)
-        )
+        setFragmentResult(REQUEST_KEY, bundleOf(RESULT_DARK_MODE to darkMode.name))
     }
 
-    override fun onDismiss(dialog: android.content.DialogInterface) {
-        super.onDismiss(dialog)
-        activity?.finish()
+    companion object {
+        const val TAG = "theme_selection"
+        const val REQUEST_KEY = "theme_selection_request"
+        const val RESULT_DARK_MODE = "dark_mode"
     }
 }

@@ -12,6 +12,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceFragmentCompat
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.ApplicationScope
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
@@ -30,6 +31,7 @@ import com.owncloud.android.ui.activity.settings.categories.MoreSettingsCategory
 import com.owncloud.android.ui.activity.settings.categories.SettingsCategory
 import com.owncloud.android.ui.activity.settings.categories.SyncSettingsCategory
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class SettingsFragment :
@@ -57,6 +59,10 @@ class SettingsFragment :
     @Inject
     lateinit var connectivityService: ConnectivityService
 
+    @Inject
+    @ApplicationScope
+    lateinit var appScope: CoroutineScope
+
     private lateinit var appLockSettings: AppLockSettings
     private lateinit var e2eCategory: E2ESettingsCategory
     private lateinit var moreCategory: MoreSettingsCategory
@@ -71,7 +77,7 @@ class SettingsFragment :
         moreCategory = MoreSettingsCategory(this, viewThemeUtils, davX5Launcher)
 
         val categories: List<SettingsCategory> = listOf(
-            GeneralSettingsCategory(this, user, preferences, viewThemeUtils),
+            GeneralSettingsCategory(this, user, preferences, viewThemeUtils, appScope),
             AutoUploadSettingsCategory(this, user, arbitraryDataProvider, viewThemeUtils),
             FilesSettingsCategory(this, preferences, viewThemeUtils),
             DetailsSettingsCategory(this, preferences, viewThemeUtils, appLockSettings),
