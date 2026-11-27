@@ -120,8 +120,11 @@ class FileThumbnailGenerator @Inject constructor(
             return
         }
 
-        file.offlineCreateFileBitmap()?.let { bitmap ->
+        val bitmap = file.offlineCreateFileBitmap()
+        if (bitmap != null) {
             view.setImageBitmap(BitmapUtils.addColorFilter(bitmap, Color.GRAY, OFFLINE_ICON_ALPHA))
+        } else {
+            view.setImageDrawable(file.mimeIcon())
         }
     }
 
