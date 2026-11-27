@@ -11,12 +11,18 @@ import com.nextcloud.android.lib.resources.teams.model.Team
 import com.nextcloud.android.lib.resources.teams.model.TeamMember
 import com.owncloud.android.R
 
+private const val LEVEL_NONE = 0
+private const val LEVEL_MEMBER = 1
+private const val LEVEL_MODERATOR = 4
+private const val LEVEL_ADMIN = 8
+private const val LEVEL_OWNER = 9
+
 enum class TeamAccess(val level: Int, @StringRes val titleId: Int) {
-    PENDING(0, R.string.team_role_pending),
-    MEMBER(1, R.string.team_role_member),
-    MODERATOR(4, R.string.team_role_moderator),
-    ADMIN(8, R.string.team_role_admin),
-    OWNER(9, R.string.team_role_owner);
+    PENDING(LEVEL_NONE, R.string.team_role_pending),
+    MEMBER(LEVEL_MEMBER, R.string.team_role_member),
+    MODERATOR(LEVEL_MODERATOR, R.string.team_role_moderator),
+    ADMIN(LEVEL_ADMIN, R.string.team_role_admin),
+    OWNER(LEVEL_OWNER, R.string.team_role_owner);
 
     val isManager: Boolean
         get() = this >= MODERATOR

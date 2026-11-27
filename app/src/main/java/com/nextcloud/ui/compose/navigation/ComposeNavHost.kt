@@ -108,7 +108,12 @@ fun ComposeNavHost(navigator: ComposeNavigator) {
                     viewModel = viewModel<TeamsViewModel>(factory = composeActivity().vmFactory),
                     client = client,
                     onTeamClick = { team ->
-                        val destination = ComposeDestination.TeamDetailScreen(team.id, team.displayName, team.url, team.access)
+                        val destination = ComposeDestination.TeamDetailScreen(
+                            teamId = team.id,
+                            title = team.displayName,
+                            settingsUrl = team.url,
+                            access = team.access
+                        )
 
                         navigator.navigate(destination)
                     }
