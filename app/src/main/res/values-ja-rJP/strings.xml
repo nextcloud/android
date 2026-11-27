@@ -593,6 +593,8 @@
     <string name="logs_menu_refresh">更新</string>
     <string name="logs_menu_search">ログを検索</string>
     <string name="logs_menu_send">メールでログを送信</string>
+    <string name="logs_menu_share">共有</string>
+    <string name="logs_open_in_files">ファイルで開く</string>
     <string name="logs_status_filtered">ログ: %1$d kB, 一致 %2$d 件 / %3$d 件、%4$d ms </string>
     <string name="logs_status_loading">読み込み中…</string>
     <string name="logs_status_not_filtered">ログ: %1$d kB, フィルタ無し</string>

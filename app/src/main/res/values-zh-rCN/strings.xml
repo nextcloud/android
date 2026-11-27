@@ -617,6 +617,8 @@
     <string name="logs_menu_refresh">刷新</string>
     <string name="logs_menu_search">搜索日志</string>
     <string name="logs_menu_send">通过电子邮件发送日志</string>
+    <string name="logs_menu_share">共享</string>
+    <string name="logs_open_in_files">在文件中打开</string>
     <string name="logs_status_filtered">日志：%1$d kB，查询匹配 %2$d / %3$d 用时 %4$d 毫秒</string>
     <string name="logs_status_loading">正在加载…</string>
     <string name="logs_status_not_filtered">日志：%1$d kB，没有筛选</string>

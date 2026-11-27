@@ -678,6 +678,8 @@
     <string name="logs_menu_refresh">重整</string>
     <string name="logs_menu_search">搜尋紀錄檔案</string>
     <string name="logs_menu_send">通過電郵發送紀錄</string>
+    <string name="logs_menu_share">分享</string>
+    <string name="logs_open_in_files">在「檔案」應用程式中打開</string>
     <string name="logs_status_filtered">記錄：%1$dkB，符合查詢%2$d/%3$d，耗時%4$dms</string>
     <string name="logs_status_loading">載入中…</string>
     <string name="logs_status_not_filtered">記錄檔： %1$d kB（不篩選）</string>
