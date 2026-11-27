@@ -181,6 +181,8 @@ class FileMenuFilterIT : AbstractIT() {
                 var sut = filterFactory.newInstance(encryptedFolder, mockComponentsGetter, true, user)
                 var toHide = sut.getToHide(false)
 
+                assertFalse(toHide.contains(R.id.action_move_or_copy))
+
                 // encrypted folder, with content
                 assertTrue(toHide.contains(R.id.action_unset_encrypted))
                 assertTrue(toHide.contains(R.id.action_encrypted))
@@ -238,6 +240,12 @@ class FileMenuFilterIT : AbstractIT() {
 
                 var sut = filterFactory.newInstance(encryptedVideo, mockComponentsGetter, true, user)
                 var toHide = sut.getToHide(false)
+
+                assertFalse(toHide.contains(R.id.action_move_or_copy))
+
+                encryptedVideo.isLocked = true
+                sut = filterFactory.newInstance(encryptedVideo, mockComponentsGetter, true, user)
+                assertTrue(sut.getToHide(false).contains(R.id.action_move_or_copy))
 
                 // encrypted video, with content
                 assertTrue(toHide.contains(R.id.action_stream_media))

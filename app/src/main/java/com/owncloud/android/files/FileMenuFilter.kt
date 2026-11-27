@@ -72,7 +72,7 @@ class FileMenuFilter internal constructor(
 
         if (isEditHidden(capability)) add(R.id.action_edit)
         if (!selection.isSingleSelection || synchronizing || containsEncryptedOrLocked) add(R.id.action_rename_file)
-        if (synchronizing || containsEncryptedOrLocked) add(R.id.action_move_or_copy)
+        if (synchronizing || selection.containsLocked) add(R.id.action_move_or_copy)
         if (synchronizing || selection.containsLocked || selection.containsEncryptedFolderContent()) {
             add(R.id.action_remove_file)
         }

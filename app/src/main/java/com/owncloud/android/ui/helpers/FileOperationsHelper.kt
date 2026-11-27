@@ -29,6 +29,8 @@ import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -749,17 +751,63 @@ class FileOperationsHelper(
         queueOperation(intent)
     }
 
-    fun moveOrCopyFiles(action: String?, filePaths: List<String?>, targetFolder: OCFile?) {
+    fun moveOrCopyFiles(action: String?, filePaths: List<String?>, targetFolder: OCFile?, onQueued: () -> Unit) {
         targetFolder ?: return
+        val targetPath = targetFolder.remotePath
+        val sources = filePaths.asSequence()
+            .mapNotNull { fileActivity.storageManager.getFileByEncryptedRemotePath(it) }.toList()
+        if (sources.none { it.isEncrypted != targetFolder.isEncrypted }) {
+            queueMoveOrCopy(action, filePaths, targetPath, true, onQueued)
+            return
+        }
 
+        val builder = MaterialAlertDialogBuilder(fileActivity)
+            .setTitle(R.string.transfer_encryption_title)
+            .setNegativeButton(R.string.common_cancel, null)
+        if (targetFolder.isEncrypted) {
+            builder.setMessage(R.string.transfer_encrypt_message)
+                .setPositiveButton(R.string.common_ok) { _, _ ->
+                    queueMoveOrCopy(action, filePaths, targetPath, true, onQueued)
+                }
+        } else if (sources.any { it.isFolder && it.isEncrypted }) {
+            builder.setMessage(R.string.transfer_encrypted_folder_message)
+                .setPositiveButton(R.string.transfer_keep_encryption) { _, _ ->
+                    queueMoveOrCopy(action, filePaths, targetPath, true, onQueued)
+                }
+                .setNeutralButton(R.string.transfer_decrypt) { _, _ ->
+                    queueMoveOrCopy(action, filePaths, targetPath, false, onQueued)
+                }
+        } else {
+            builder.setMessage(R.string.transfer_decrypt_message)
+                .setPositiveButton(R.string.common_ok) { _, _ ->
+                    queueMoveOrCopy(action, filePaths, targetPath, false, onQueued)
+                }
+        }
+        fileActivity.viewThemeUtils.dialog.colorMaterialAlertDialogBackground(fileActivity, builder)
+        builder.show()
+    }
+
+    @SuppressFBWarnings(
+        "PDP_POORLY_DEFINED_PARAMETER",
+        justification = "Kotlin erases the string element type of filePaths at the JVM level."
+    )
+    private fun queueMoveOrCopy(
+        action: String?,
+        filePaths: List<String?>,
+        targetPath: String,
+        keepEncryption: Boolean,
+        onQueued: () -> Unit
+    ) {
         filePaths.forEach { path ->
             val intent = operationIntent(action).apply {
-                putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.remotePath)
+                putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetPath)
                 putExtra(OperationsService.EXTRA_REMOTE_PATH, path)
+                putExtra(OperationsService.EXTRA_KEEP_ENCRYPTION, keepEncryption)
             }
             queueOperation(intent)
         }
         showWaitDialog()
+        onQueued()
     }
 
     fun cancelTransference(file: OCFile) {
