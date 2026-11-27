@@ -7,9 +7,20 @@
 
 package com.owncloud.android.ui.dialog.setupEncryption.model
 
+import androidx.annotation.StringRes
 import com.owncloud.android.R
 
 sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
+    data class RequestFailed(@param:StringRes override val descriptionId: Int) : DownloadKeyResult(descriptionId)
+
+    data class CertificateVerificationFailed(
+        val reason: CertificateValidationResult,
+        override val descriptionId: Int = requireNotNull(reason.descriptionId)
+    ) : DownloadKeyResult(descriptionId)
+
+    data class LocalKeysInvalid(override val descriptionId: Int = R.string.e2ee_local_keys_invalid) :
+        DownloadKeyResult(descriptionId)
+
     data class CertificateNotSignedByCurrentServerKey(
         override val descriptionId: Int = R.string.end_to_end_encryption_could_not_verify_certificate
     ) : DownloadKeyResult(descriptionId)
