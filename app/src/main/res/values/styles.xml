@@ -469,6 +469,25 @@
     <style name="PreferenceTheme" parent="FallbackThemingTheme">
         <item name="android:colorBackground">@color/bg_default</item>
         <item name="android:listDivider">@null</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.App</item>
+    </style>
+
+    <style name="PreferenceThemeOverlay.App" parent="PreferenceThemeOverlay">
+        <item name="preferenceStyle">@style/Preference.App</item>
+        <item name="preferenceCategoryStyle">@style/Preference.Category.App</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.SwitchPreferenceCompat.App</item>
+    </style>
+
+    <style name="Preference.App" parent="Preference.Material">
+        <item name="iconSpaceReserved">false</item>
+    </style>
+
+    <style name="Preference.Category.App" parent="Preference.Category.Material">
+        <item name="iconSpaceReserved">false</item>
+    </style>
+
+    <style name="Preference.SwitchPreferenceCompat.App" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="iconSpaceReserved">false</item>
     </style>
 
 

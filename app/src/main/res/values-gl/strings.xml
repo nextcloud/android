@@ -607,6 +607,8 @@
     <string name="logs_menu_refresh">Actualizar</string>
     <string name="logs_menu_search">Buscar rexistros</string>
     <string name="logs_menu_send">Enviar rexistros por correo-e</string>
+    <string name="logs_menu_share">Compartir</string>
+    <string name="logs_open_in_files">Abrir en ficheiros</string>
     <string name="logs_status_filtered">Rexistros: %1$d kB, consulta coincidente %2$d / %3$d en %4$d ms</string>
     <string name="logs_status_loading">Cargando…</string>
     <string name="logs_status_not_filtered">Rexistros: %1$d kB, sen filtrar</string>

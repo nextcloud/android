@@ -344,6 +344,7 @@
     <string name="login">Pieteikties</string>
     <string name="login_url_helper_text">Saite uz %1$s tīmekļa saskarni, kad tā tiek atvērta pārlūkā.</string>
     <string name="logs_menu_refresh">Atsvaidzināt</string>
+    <string name="logs_menu_share">Kopīgot</string>
     <string name="logs_status_loading">Notiek ielāde...</string>
     <string name="logs_title">Žurnāli</string>
     <string name="manage_space_clear_data">Notīrīt datus</string>

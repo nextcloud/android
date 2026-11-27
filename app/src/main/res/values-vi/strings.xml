@@ -414,6 +414,8 @@
     <string name="logs_menu_refresh">Làm mới</string>
     <string name="logs_menu_search">Tìm kiếm nhật kí</string>
     <string name="logs_menu_send">Gửi nhật kí bằng e-mail</string>
+    <string name="logs_menu_share">Chia sẻ</string>
+    <string name="logs_open_in_files">Mở trong Tệp</string>
     <string name="logs_status_filtered">Nhật kí: %1$d kB, truy vấn phù hợp %2$d / %3$d trong %4$d mili-giây</string>
     <string name="logs_status_loading">Đang tải…</string>
     <string name="logs_status_not_filtered">Nhật kí: %1$d kB, không có bộ lọc</string>

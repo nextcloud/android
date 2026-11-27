@@ -673,6 +673,8 @@
     <string name="logs_menu_refresh">Uppdatera</string>
     <string name="logs_menu_search">Sök i loggar</string>
     <string name="logs_menu_send">Skicka loggar via e-post</string>
+    <string name="logs_menu_share">Resurs</string>
+    <string name="logs_open_in_files">Öppna i Filer</string>
     <string name="logs_status_filtered">Loggar: %1$d kB, frågan matchade %2$d / %3$d på %4$d ms</string>
     <string name="logs_status_loading">Läser in…</string>
     <string name="logs_status_not_filtered">Loggar: %1$d kB, inget filter</string>

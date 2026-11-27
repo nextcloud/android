@@ -678,6 +678,7 @@
     <string name="logs_menu_refresh">Aktualisieren</string>
     <string name="logs_menu_search">Suche Logs</string>
     <string name="logs_menu_send">Protokolldateien per E-Mail versenden</string>
+    <string name="logs_open_in_files">In Dateien öffnen</string>
     <string name="logs_status_filtered">Logs: %1$d kB, Abfragetreffer %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Lade …</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, kein Filter</string>
