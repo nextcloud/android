@@ -65,7 +65,6 @@ import com.owncloud.android.ui.adapter.filelist.item.FileViewHolder
 import com.owncloud.android.ui.adapter.filelist.item.FileListDelegate
 import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesAdapter
 import com.owncloud.android.ui.adapter.filelist.recommended.RecommendedFilesViewHolder
-import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.FileListAdapterListener
 import com.owncloud.android.utils.EncryptionUtils
@@ -619,7 +618,6 @@ class FileListAdapter(
         when (holder) {
             is FileItemViewHolder -> {
                 fileItemBinder.bind(holder, file, user, storageManager, shouldShowItemOptions(), onlyOnDevice)
-                fileItemBinder.bindOverflowMenuVisibility(holder, shouldShowMoreOptions())
             }
 
             is FileGridItemViewHolder -> fileGridItemBinder.bind(holder, file, shouldShowMoreOptions())
@@ -636,8 +634,7 @@ class FileListAdapter(
 
     private fun shouldShowItemOptions(): Boolean = !(isMultiSelect() || gridView || hideItemOptions)
 
-    private fun shouldShowMoreOptions(): Boolean =
-        !isMultiSelect() && !OCFileListFragment.isMultipleFileSelectedForCopyOrMove
+    private fun shouldShowMoreOptions(): Boolean = !(isMultiSelect() || hideItemOptions)
 
     private fun shouldShowRecommendedFiles(): Boolean =
         recommendedFiles.isNotEmpty() && currentDirectory?.isRootDirectory == true

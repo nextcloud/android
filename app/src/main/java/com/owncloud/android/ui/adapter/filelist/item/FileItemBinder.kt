@@ -57,10 +57,6 @@ internal class FileItemBinder(
 
         binding.playerProgressIndicator.setFile(file)
     }
-
-    fun bindOverflowMenuVisibility(holder: FileItemViewHolder, showMoreOptions: Boolean) {
-        holder.binding.overflowMenu.setVisibleIf(showMoreOptions)
-    }
     // endregion
 
     // region Private methods

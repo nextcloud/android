@@ -117,7 +117,6 @@ internal class OCFileListMultiChoiceModeListener(private val fragment: OCFileLis
             fragment.exitSelectionMode()
         }
 
-        OCFileListFragment.isMultipleFileSelectedForCopyOrMove = checkedCount > 0
         return true
     }
 
@@ -150,8 +149,6 @@ internal class OCFileListMultiChoiceModeListener(private val fragment: OCFileLis
             setMultiSelect(false)
             clearCheckedItems()
         }
-
-        OCFileListFragment.isMultipleFileSelectedForCopyOrMove = false
     }
     //endregion
 
