@@ -68,7 +68,7 @@ import com.nextcloud.client.jobs.upload.FileUploadEventBroadcaster
 import com.nextcloud.client.player.model.file.toPlaybackCollection
 import com.nextcloud.client.player.ui.audio.AudioPlayerLauncher
 import com.nextcloud.client.utils.IntentUtil
-import com.nextcloud.ui.composeActivity.ComposeProcessTextAlias
+import com.nextcloud.ui.compose.ComposeProcessTextAlias
 import com.nextcloud.utils.SnackbarUtil
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument

@@ -124,7 +124,6 @@ class StackRemoteViewsFactory(
             setOnClickFillInIntent(R.id.load_more_container, clickIntent)
         }
 
-    // we will switch soon to coil and then streamline all of this
     // Kotlin cannot catch multiple exception types at same time
     @Suppress("NestedBlockDepth")
     private fun createItemView(position: Int): RemoteViews {

@@ -1,0 +1,148 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2026 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+package com.nextcloud.ui.teams.viewmodel
+
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.nextcloud.android.lib.resources.teams.model.Team
+import com.nextcloud.android.lib.resources.teams.put.invitation.model.TeamInvitationResponse
+import com.nextcloud.client.di.SavedStateViewModelCreator
+import com.nextcloud.ui.teams.model.TeamDialogStatus
+import com.nextcloud.ui.teams.model.TeamsUiState
+import com.nextcloud.ui.teams.model.createTeamErrorMessageId
+import com.nextcloud.ui.teams.model.invitationErrorMessageId
+import com.nextcloud.ui.teams.model.loadTeamsErrorMessageId
+import com.nextcloud.ui.teams.repository.TeamsRepository
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
+
+class TeamsViewModel @AssistedInject constructor(
+    private val repository: TeamsRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+
+    private val teamsState = MutableStateFlow<TeamsUiState>(TeamsUiState.Loading)
+
+    val searchQuery: StateFlow<String> = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
+
+    val uiState: StateFlow<TeamsUiState> = combine(teamsState, searchQuery) { state, query ->
+        if (state is TeamsUiState.Content) state.matching(query) else state
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT), TeamsUiState.Loading)
+
+    val createTeamName: StateFlow<String?> = savedStateHandle.getStateFlow(KEY_CREATE_TEAM_NAME, null)
+
+    private val _createTeamStatus = MutableStateFlow<TeamDialogStatus>(TeamDialogStatus.Editing)
+    val createTeamStatus: StateFlow<TeamDialogStatus> = _createTeamStatus.asStateFlow()
+
+    private val _respondingTeamIds = MutableStateFlow<Set<String>>(emptySet())
+    val respondingTeamIds: StateFlow<Set<String>> = _respondingTeamIds.asStateFlow()
+
+    private val _errorMessages = Channel<Int>(Channel.BUFFERED)
+    val errorMessages: Flow<Int> = _errorMessages.receiveAsFlow()
+
+    init {
+        viewModelScope.launch { loadTeams() }
+    }
+
+    fun retry() {
+        teamsState.value = TeamsUiState.Loading
+        viewModelScope.launch { loadTeams() }
+    }
+
+    fun updateSearchQuery(query: String) {
+        savedStateHandle[KEY_SEARCH_QUERY] = query
+    }
+
+    fun updateCreateTeamStatus(name: String?) {
+        _createTeamStatus.value = TeamDialogStatus.Editing
+        savedStateHandle[KEY_CREATE_TEAM_NAME] = name
+    }
+
+    fun createTeam() {
+        val name = createTeamName.value?.trim()
+        if (name == null || !isValidTeamName(name)) {
+            return
+        }
+
+        _createTeamStatus.value = TeamDialogStatus.Submitting
+        viewModelScope.launch {
+            val result = repository.createTeam(name)
+            if (!result.isSuccess) {
+                val failed = TeamDialogStatus.Failed(result.createTeamErrorMessageId())
+                _createTeamStatus.compareAndSet(TeamDialogStatus.Submitting, failed)
+                return@launch
+            }
+
+            loadTeams()
+            if (_createTeamStatus.compareAndSet(TeamDialogStatus.Submitting, TeamDialogStatus.Editing)) {
+                updateCreateTeamStatus(null)
+            }
+        }
+    }
+
+    fun respondToInvitation(team: Team, response: TeamInvitationResponse) {
+        if (team.id in _respondingTeamIds.value) {
+            return
+        }
+
+        _respondingTeamIds.update { it + team.id }
+        viewModelScope.launch {
+            val result = repository.respondToInvitation(team.id, response)
+            if (result.isSuccess) {
+                loadTeams()
+            } else {
+                _errorMessages.send(result.invitationErrorMessageId(response))
+            }
+            _respondingTeamIds.update { it - team.id }
+        }
+    }
+
+    private suspend fun loadTeams() {
+        val result = repository.getTeams()
+        if (!result.isSuccess) {
+            teamsState.value = TeamsUiState.Error(result.loadTeamsErrorMessageId())
+            return
+        }
+
+        val (invitations, myTeams) = result.resultData.orEmpty()
+            .filter { it.initiator != null }
+            .partition { it.isInvitation }
+
+        teamsState.value = TeamsUiState.Content(invitations, myTeams)
+    }
+
+    @AssistedFactory
+    interface Factory : SavedStateViewModelCreator {
+        override fun create(savedStateHandle: SavedStateHandle): TeamsViewModel
+    }
+
+    companion object {
+        private const val KEY_CREATE_TEAM_NAME = "create_team_name"
+        private const val KEY_SEARCH_QUERY = "search_query"
+        private val STOP_TIMEOUT = 5.seconds
+        const val MIN_TEAM_NAME_BYTES = 3
+        const val MAX_TEAM_NAME_BYTES = 127
+
+        fun isValidTeamName(name: String): Boolean =
+            name.trim().toByteArray().size in MIN_TEAM_NAME_BYTES..MAX_TEAM_NAME_BYTES
+    }
+}
