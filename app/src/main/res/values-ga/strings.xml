@@ -675,6 +675,8 @@
     <string name="logs_menu_refresh">Athnuaigh</string>
     <string name="logs_menu_search">Logchomhaid chuardaigh</string>
     <string name="logs_menu_send">Seol logs trí ríomhphost</string>
+    <string name="logs_menu_share">Comhroinn</string>
+    <string name="logs_open_in_files">Oscail i gcomhaid</string>
     <string name="logs_status_filtered">Logchomhaid: %1$d kB, freagraíodh an cheist %2$d / %3$d i %4$d ms</string>
     <string name="logs_status_loading">Á lódáil…</string>
     <string name="logs_status_not_filtered">Logchomhaid: %1$d kB, gan scagaire</string>

@@ -568,6 +568,8 @@
     <string name="logs_menu_refresh">Refresh</string>
     <string name="logs_menu_search">ຊອກຫາການບັນທຶກ</string>
     <string name="logs_menu_send">Send logs by email</string>
+    <string name="logs_menu_share">ແບ່ງປັນ</string>
+    <string name="logs_open_in_files">Open in files</string>
     <string name="logs_status_filtered">ບັນທຶກ:%1$dkB, ແບບສອບຖາມກົງກັນ%2$d/%3$d ໃນ%4$dວິນາທີ</string>
     <string name="logs_status_loading">ກຳລັງໂຫຼດ</string>
     <string name="logs_status_not_filtered">ບັນທຶກ:%1$d kB, ບໍ່ມີຕົວກອງ</string>

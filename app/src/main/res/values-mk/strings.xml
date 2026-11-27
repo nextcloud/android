@@ -405,6 +405,8 @@
     <string name="logs_menu_refresh">Освежи</string>
     <string name="logs_menu_search">Пребарувај записи</string>
     <string name="logs_menu_send">Испрати записи преку е-пошта</string>
+    <string name="logs_menu_share">Сподели</string>
+    <string name="logs_open_in_files">Отвори во датотеките</string>
     <string name="logs_status_filtered">Записи: %1$d kB, совпаднати барања %2$d / %3$d во %4$d ms</string>
     <string name="logs_status_loading">Се вчитува…</string>
     <string name="logs_status_not_filtered">Записи: %1$d kB, без филтер</string>

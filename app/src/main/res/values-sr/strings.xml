@@ -567,6 +567,8 @@
     <string name="logs_menu_refresh">Освежи</string>
     <string name="logs_menu_search">Претражи записнике</string>
     <string name="logs_menu_send">Пошаљи дневнике и-мејлом</string>
+    <string name="logs_menu_share">Пдели</string>
+    <string name="logs_open_in_files">Отвори у фајловима</string>
     <string name="logs_status_filtered">Записници: %1$d kB, упит је пронашао %2$d/%3$d за %4$dms</string>
     <string name="logs_status_loading">Учитавам…</string>
     <string name="logs_status_not_filtered">Записници: %1$d kB, без филтрирања</string>
