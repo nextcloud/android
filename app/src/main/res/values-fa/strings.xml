@@ -608,6 +608,8 @@
     <string name="logs_menu_refresh">تازه‌سازی</string>
     <string name="logs_menu_search">جستجوی تاریخچه‌ها</string>
     <string name="logs_menu_send">ارسال گزارش‌ها از طریق ایمیل</string>
+    <string name="logs_menu_share">اشتراک‌گذاری</string>
+    <string name="logs_open_in_files">باز کردن در فایل‌ها</string>
     <string name="logs_status_filtered">رویدادها: %1$d کیلوبایت، نتایج جستجوی منطبق %2$d از %3$d در %4$d میلی‌ثانیه</string>
     <string name="logs_status_loading">در حال بارگذاری...</string>
     <string name="logs_status_not_filtered">رویدادها: %1$d کیلوبایت، بدون فیلتر</string>
