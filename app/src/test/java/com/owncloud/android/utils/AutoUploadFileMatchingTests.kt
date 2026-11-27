@@ -7,6 +7,7 @@
 
 package com.owncloud.android.utils
 
+import com.nextcloud.utils.extensions.mimeType
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -43,7 +44,7 @@ class AutoUploadFileMatchingTests {
 
     @Before
     fun setUp() {
-        mockkStatic(MimeTypeUtil::class)
+        mockkStatic("com.nextcloud.utils.extensions.MimeTypeExtensionsKt")
 
         imageFile = File(IMAGE_FILE_PATH)
         videoFile = File(VIDEO_FILE_PATH)
@@ -80,8 +81,7 @@ class AutoUploadFileMatchingTests {
     // region IMAGE type tests
     @Test
     fun `given image folder when file is image and under local path then returns true`() {
-        every { MimeTypeUtil.isImage(imageFile) } returns true
-        every { MimeTypeUtil.isVideo(imageFile) } returns false
+        every { imageFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
@@ -89,8 +89,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given image folder when file is video and under local path then returns false`() {
-        every { MimeTypeUtil.isImage(videoFile) } returns false
-        every { MimeTypeUtil.isVideo(videoFile) } returns true
+        every { videoFile.mimeType } returns MimeType.MP4
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
         assertFalse(folder.isFileInFolderWithCorrectMediaType(videoFile, VIDEO_FILE_PATH))
@@ -99,8 +98,7 @@ class AutoUploadFileMatchingTests {
     @Test
     fun `given image folder when file is image but outside local path then returns false`() {
         val outsideFile = File(IMAGE_FILE_OUTSIDE_PATH)
-        every { MimeTypeUtil.isImage(outsideFile) } returns true
-        every { MimeTypeUtil.isVideo(outsideFile) } returns false
+        every { outsideFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
         assertFalse(folder.isFileInFolderWithCorrectMediaType(outsideFile, IMAGE_FILE_OUTSIDE_PATH))
@@ -108,8 +106,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given image folder when file is image and local path has trailing separator then returns true`() {
-        every { MimeTypeUtil.isImage(imageFile) } returns true
-        every { MimeTypeUtil.isVideo(imageFile) } returns false
+        every { imageFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH_WITH_SEPARATOR, MediaFolderType.IMAGE)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
@@ -118,8 +115,7 @@ class AutoUploadFileMatchingTests {
     @Test
     fun `given image folder when file path is in similar named folder then returns false`() {
         val similarFile = File(IMAGE_FILE_SIMILAR_PATH)
-        every { MimeTypeUtil.isImage(similarFile) } returns true
-        every { MimeTypeUtil.isVideo(similarFile) } returns false
+        every { similarFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
         assertFalse(
@@ -136,7 +132,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given image folder when local path is null then returns false`() {
-        every { MimeTypeUtil.isImage(imageFile) } returns true
+        every { imageFile.mimeType } returns MimeType.JPEG
         val folder = createSyncedFolder(null, MediaFolderType.IMAGE)
         assertFalse(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
     }
@@ -146,8 +142,7 @@ class AutoUploadFileMatchingTests {
     // region VIDEO type tests
     @Test
     fun `given video folder when file is video and under local path then returns true`() {
-        every { MimeTypeUtil.isImage(videoFile) } returns false
-        every { MimeTypeUtil.isVideo(videoFile) } returns true
+        every { videoFile.mimeType } returns MimeType.MP4
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(videoFile, VIDEO_FILE_PATH))
@@ -155,8 +150,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given video folder when file is image and under local path then returns false`() {
-        every { MimeTypeUtil.isImage(imageFile) } returns true
-        every { MimeTypeUtil.isVideo(imageFile) } returns false
+        every { imageFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
         assertFalse(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
@@ -165,8 +159,7 @@ class AutoUploadFileMatchingTests {
     @Test
     fun `given video folder when file is video but outside local path then returns false`() {
         val outsideVideo = File(VIDEO_FILE_OUTSIDE_PATH)
-        every { MimeTypeUtil.isImage(outsideVideo) } returns false
-        every { MimeTypeUtil.isVideo(outsideVideo) } returns true
+        every { outsideVideo.mimeType } returns MimeType.MP4
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
         assertFalse(folder.isFileInFolderWithCorrectMediaType(outsideVideo, VIDEO_FILE_OUTSIDE_PATH))
@@ -174,8 +167,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given video folder when file is video and local path has trailing separator then returns true`() {
-        every { MimeTypeUtil.isImage(videoFile) } returns false
-        every { MimeTypeUtil.isVideo(videoFile) } returns true
+        every { videoFile.mimeType } returns MimeType.MP4
 
         val folder = createSyncedFolder(LOCAL_PATH_WITH_SEPARATOR, MediaFolderType.VIDEO)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(videoFile, VIDEO_FILE_PATH))
@@ -184,8 +176,7 @@ class AutoUploadFileMatchingTests {
     @Test
     fun `given video folder when file path is in similar named folder then returns false`() {
         val similarVideo = File(VIDEO_FILE_OUTSIDE_PATH)
-        every { MimeTypeUtil.isImage(similarVideo) } returns false
-        every { MimeTypeUtil.isVideo(similarVideo) } returns true
+        every { similarVideo.mimeType } returns MimeType.MP4
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.VIDEO)
         assertFalse(
@@ -205,8 +196,7 @@ class AutoUploadFileMatchingTests {
     // region CUSTOM type tests
     @Test
     fun `given custom folder when any file type is under local path then returns true`() {
-        every { MimeTypeUtil.isImage(customFile) } returns false
-        every { MimeTypeUtil.isVideo(customFile) } returns false
+        every { customFile.mimeType } returns MimeType.PDF
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(customFile, CUSTOM_FILE_PATH))
@@ -214,8 +204,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given custom folder when image file is under local path then returns true`() {
-        every { MimeTypeUtil.isImage(imageFile) } returns true
-        every { MimeTypeUtil.isVideo(imageFile) } returns false
+        every { imageFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
@@ -223,8 +212,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given custom folder when video file is under local path then returns true`() {
-        every { MimeTypeUtil.isImage(videoFile) } returns false
-        every { MimeTypeUtil.isVideo(videoFile) } returns true
+        every { videoFile.mimeType } returns MimeType.MP4
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(videoFile, VIDEO_FILE_PATH))
@@ -233,8 +221,7 @@ class AutoUploadFileMatchingTests {
     @Test
     fun `given custom folder when file is outside local path then returns false`() {
         val outsideFile = File(IMAGE_FILE_OUTSIDE_PATH)
-        every { MimeTypeUtil.isImage(outsideFile) } returns true
-        every { MimeTypeUtil.isVideo(outsideFile) } returns false
+        every { outsideFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
         assertFalse(folder.isFileInFolderWithCorrectMediaType(outsideFile, IMAGE_FILE_OUTSIDE_PATH))
@@ -242,8 +229,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given custom folder when local path has trailing separator then returns true`() {
-        every { MimeTypeUtil.isImage(customFile) } returns false
-        every { MimeTypeUtil.isVideo(customFile) } returns false
+        every { customFile.mimeType } returns MimeType.PDF
 
         val folder = createSyncedFolder(LOCAL_PATH_WITH_SEPARATOR, MediaFolderType.CUSTOM)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(customFile, CUSTOM_FILE_PATH))
@@ -252,8 +238,7 @@ class AutoUploadFileMatchingTests {
     @Test
     fun `given custom folder when file path is in similar named folder then returns false`() {
         val similarFile = File(IMAGE_FILE_SIMILAR_PATH)
-        every { MimeTypeUtil.isImage(similarFile) } returns true
-        every { MimeTypeUtil.isVideo(similarFile) } returns false
+        every { similarFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.CUSTOM)
         assertFalse(
@@ -272,8 +257,7 @@ class AutoUploadFileMatchingTests {
     // region Path edge case tests
     @Test
     fun `given image folder when file is directly inside local path root then returns true`() {
-        every { MimeTypeUtil.isImage(imageFile) } returns true
-        every { MimeTypeUtil.isVideo(imageFile) } returns false
+        every { imageFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH))
@@ -283,8 +267,7 @@ class AutoUploadFileMatchingTests {
     fun `given any folder type when file is in nested subdirectory then returns true`() {
         val nestedPath = "/storage/emulated/0/DCIM/Camera/2024/March/photo.jpg"
         val nestedFile = File(nestedPath)
-        every { MimeTypeUtil.isImage(nestedFile) } returns true
-        every { MimeTypeUtil.isVideo(nestedFile) } returns false
+        every { nestedFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder(LOCAL_PATH, MediaFolderType.IMAGE)
         assertTrue(folder.isFileInFolderWithCorrectMediaType(nestedFile, nestedPath))
@@ -292,7 +275,7 @@ class AutoUploadFileMatchingTests {
 
     @Test
     fun `given any folder type when local path is empty string then returns false`() {
-        every { MimeTypeUtil.isImage(imageFile) } returns true
+        every { imageFile.mimeType } returns MimeType.JPEG
 
         val folder = createSyncedFolder("", MediaFolderType.IMAGE)
         val result = folder.isFileInFolderWithCorrectMediaType(imageFile, IMAGE_FILE_PATH)

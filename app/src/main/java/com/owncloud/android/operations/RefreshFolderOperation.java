@@ -18,6 +18,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.ResultParser;
 import com.nextcloud.utils.e2ee.E2EVersionHelper;
+import com.nextcloud.utils.extensions.MimeTypeExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.nextcloud.utils.share.UnifiedShareSharees;
@@ -813,7 +814,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (updatedFile.isFolder()) {
                 updatedFile.setFileLength(remoteFile.getFileLength());
                 updatedFile.setMountType(remoteFile.getMountType());
-            } else if (remoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
+            } else if (remoteFolderChanged && MimeTypeExtensionsKt.matchesMimeType(remoteFile, MimeTypeUtil::isImage) &&
                 remoteFile.getModificationTimestamp() !=
                     localFile.getModificationTimestamp()) {
                 updatedFile.setUpdateThumbnailNeeded(true);

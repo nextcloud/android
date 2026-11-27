@@ -468,7 +468,8 @@ open class OCFileListFragment :
             currentDir,
             viewThemeUtils,
             editorUtils,
-            appScanOptionalFeature
+            appScanOptionalFeature,
+            arbitraryDataProvider
         ).run {
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             behavior.skipCollapsed = true
@@ -867,6 +868,8 @@ open class OCFileListFragment :
 
     //region File actions
     fun openActionsMenu(filesCount: Int, checkedFiles: Set<OCFile>, isOverflow: Boolean) {
+        if (!isResumed) return
+
         val storageManager = requireContainerActivity().storageManager
         val accountName = accountManager.user.accountName
         actionsMenuThrottle.launch(viewLifecycleOwner.lifecycleScope) {

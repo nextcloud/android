@@ -47,6 +47,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datastorage.DataStorageProvider
 import com.owncloud.android.files.StreamMediaFileOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -306,15 +307,21 @@ class FileOperationsHelper(
     private fun createOpenFileIntent(file: OCFile): Intent {
         val storagePath = file.storagePath
         val fileUri = file.getExposedFileUri(fileActivity)
-        val extension = storagePath.substringAfterLast('.', missingDelimiterValue = "")
-        val guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+        val extension = storagePath.substringAfterLast('.', "")
 
-        val openFileIntent = guessedMimeType?.let { Intent(Intent.ACTION_VIEW).setDataAndType(fileUri, it) }
+        fun viewIntent(type: String?) = Intent(Intent.ACTION_VIEW).setDataAndType(fileUri, type)
+
+        val intent = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)?.let(::viewIntent)
             ?: createIntentFromShortcutFile(storagePath, extension)
-            ?: Intent(Intent.ACTION_VIEW).setDataAndType(fileUri, file.mimeType)
+            ?: viewIntent(file.mimeType)
 
-        openFileIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-        return openFileIntent
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
+        if (DataStorageProvider.getInstance().allowAccessFromOtherApps()) {
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+        }
+
+        return intent
     }
 
     private fun createIntentFromShortcutFile(storagePath: String, extension: String): Intent? {

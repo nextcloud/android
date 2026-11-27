@@ -24,6 +24,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.utils.extensions.getSmallThumbnailKey
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.extensions.startShimmer
 import com.nextcloud.utils.extensions.stopShimmer
 import com.nextcloud.utils.extensions.toFile
@@ -106,7 +107,7 @@ class FileThumbnailGenerator @Inject constructor(
     private fun show(bitmap: Bitmap, file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         view.stopShimmer(arguments.shimmer)
 
-        if (MimeTypeUtil.isVideo(file) && !arguments.hideVideoOverlay) {
+        if (MimeTypeUtil.isVideo(file.mimeType) && !arguments.hideVideoOverlay) {
             view.setImageBitmap(VideoOverlayGenerator.addOverlay(bitmap, context))
         } else {
             BitmapUtils.setRoundedBitmapAccordingToListType(arguments.isGrid, bitmap, view)
@@ -142,7 +143,8 @@ class FileThumbnailGenerator @Inject constructor(
     private fun setLocalThumbnail(file: OCFile, view: ImageView, arguments: ThumbnailArguments) {
         val localFile = file.storagePath.toFile()
 
-        if (localFile == null || !MimeTypeUtil.isImageOrVideo(file)) {
+        val isImageOrVideo = file.matchesMimeType(MimeTypeUtil::isImage) || MimeTypeUtil.isVideo(file.mimeType)
+        if (localFile == null || !isImageOrVideo) {
             view.stopShimmer(arguments.shimmer)
             view.setImageDrawable(file.mimeIcon())
         } else if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(localFile, view)) {

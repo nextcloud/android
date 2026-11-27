@@ -40,7 +40,7 @@ object UploadThumbnailSource {
         uploads: UploadDao,
         filesystem: FileSystemDao? = null
     ): File? {
-        if (!file.isEncrypted || !MimeTypeUtil.isImageOrVideo(file)) return null
+        if (!file.isEncrypted || !MimeTypeUtil.isImageOrVideo(file.mimeType)) return null
         val upload = uploads.getByRemotePath(file.remotePath, accountName)
             ?: uploads.getByRemotePath(file.decryptedRemotePath, accountName)
             ?: run {

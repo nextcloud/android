@@ -71,12 +71,13 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
         }
     }
 
-    fun export(logs: List<LogEntry>) {
+    fun export(logs: List<LogEntry>, onExported: () -> Unit) {
         if (task == null) {
             val outFile = File(context.cacheDir, "attachments/logs.txt")
             task = runner.postQuickTask(Task(context, logs, outFile, clock.tz), onResult = {
                 task = null
                 export(outFile)
+                onExported()
             })
         }
     }

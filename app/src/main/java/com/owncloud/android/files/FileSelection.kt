@@ -6,6 +6,7 @@
  */
 package com.owncloud.android.files
 
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeTypeUtil
@@ -34,10 +35,11 @@ class FileSelection(private val files: Collection<OCFile>, private val storageMa
         get() = isSingleSelection && firstFile.isFolder
 
     val isSingleImage: Boolean
-        get() = isSingleSelection && MimeTypeUtil.isImage(firstFile)
+        get() = isSingleSelection && firstFile.matchesMimeType(MimeTypeUtil::isImage)
 
     val isSingleMedia: Boolean
-        get() = isSingleSelection && (MimeTypeUtil.isVideo(firstFile) || MimeTypeUtil.isAudio(firstFile))
+        get() = isSingleSelection &&
+            (MimeTypeUtil.isVideo(firstFile.mimeType) || MimeTypeUtil.isAudio(firstFile.mimeType))
 
     val isEncryptedFolder: Boolean
         get() = isSingleFolder && firstFile.isEncrypted

@@ -66,7 +66,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
-import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
 import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -475,7 +475,7 @@ class DialogFragmentIT : AbstractIT() {
                 editors["text"] = Editor(
                     "1",
                     "Text",
-                    ArrayList(mutableListOf(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
+                    ArrayList(mutableListOf(MimeType.TEXT_MARKDOWN)),
                     ArrayList(),
                     false
                 )
@@ -512,7 +512,8 @@ class DialogFragmentIT : AbstractIT() {
                     ColorUtil(targetContext)
                 )
 
-                val editorUtils = EditorUtils(ArbitraryDataProviderImpl(targetContext))
+                val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
+                val editorUtils = EditorUtils(arbitraryDataProvider)
 
                 sut = OCFileListBottomSheetDialog(
                     fda,
@@ -522,7 +523,8 @@ class DialogFragmentIT : AbstractIT() {
                     ocFile,
                     viewThemeUtils,
                     editorUtils,
-                    appScanOptionalFeature
+                    appScanOptionalFeature,
+                    arbitraryDataProvider
                 )
 
                 sut.show()

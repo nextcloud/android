@@ -380,10 +380,10 @@ public final class ThumbnailsCacheManager {
                 mFile = object.getFile();
                 mImageKey = object.getImageKey();
 
-                if (mFile instanceof ServerFileInterface) {
+                if (mFile instanceof ServerFileInterface serverFile) {
                     thumbnail = doThumbnailFromOCFileInBackground();
 
-                    if (MimeTypeUtil.isVideo((ServerFileInterface) mFile) && thumbnail != null && !hideVideoOverlay) {
+                    if (MimeTypeUtil.isVideo(serverFile.getMimeType()) && thumbnail != null && !hideVideoOverlay) {
                         thumbnail = VideoOverlayGenerator.addOverlay(thumbnail, MainApp.getAppContext());
                     }
                 } else if (mFile instanceof File) {
@@ -610,11 +610,12 @@ public final class ThumbnailsCacheManager {
             String imageKey = UploadThumbnailSource.cacheKey(file);
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
             if (thumbnail == null) {
-                Bitmap bitmap = MimeTypeUtil.isVideo(file)
+                String mimeType = FileStorageUtils.getMimeTypeFromName(file.getName());
+                Bitmap bitmap = MimeTypeUtil.isVideo(mimeType)
                     ? ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Images.Thumbnails.MINI_KIND)
                     : BitmapUtils.decodeSampledBitmapFromFile(file.getAbsolutePath(), pxW, pxH);
                 if (bitmap != null) {
-                    if (PNG_MIMETYPE.equalsIgnoreCase(FileStorageUtils.getMimeTypeFromName(file.getName()))) {
+                    if (PNG_MIMETYPE.equalsIgnoreCase(mimeType)) {
                         bitmap = BitmapUtils.centerCropOnPngBackground(bitmap, pxW, pxH);
                     }
                     thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), pxW, pxH);

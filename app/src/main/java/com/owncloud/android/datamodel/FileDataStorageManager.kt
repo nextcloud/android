@@ -50,6 +50,7 @@ import com.nextcloud.utils.ResultParser.data
 import com.nextcloud.utils.e2ee.E2EVersionHelper
 import com.nextcloud.utils.extensions.createStoragePath
 import com.nextcloud.utils.extensions.isTheSameAs
+import com.nextcloud.utils.extensions.matchesMimeType
 import com.nextcloud.utils.extensions.toEntity
 import com.nextcloud.utils.extensions.toFile
 import com.nextcloud.utils.extensions.toFileEntity
@@ -432,7 +433,7 @@ class FileDataStorageManager private constructor(
     fun getFolderImages(folder: OCFile?, onlyOnDevice: Boolean): List<OCFile> {
         if (folder == null) return ArrayList()
 
-        return getFolderContent(folder, onlyOnDevice).filter { MimeTypeUtil.isImage(it) }
+        return getFolderContent(folder, onlyOnDevice).filter { it.matchesMimeType(MimeTypeUtil::isImage) }
     }
 
     fun getFolderImagesAndVideos(folder: OCFile?, onlyOnDevice: Boolean): List<OCFile> {
@@ -441,7 +442,8 @@ class FileDataStorageManager private constructor(
         val mediaFileNames = HashSet<String?>()
 
         return getFolderContent(folder, onlyOnDevice).filter {
-            MimeTypeUtil.isImageOrVideo(it) && mediaFileNames.add(it.fileName)
+            val isImageOrVideo = it.matchesMimeType(MimeTypeUtil::isImage) || MimeTypeUtil.isVideo(it.mimeType)
+            isImageOrVideo && mediaFileNames.add(it.fileName)
         }
     }
 
@@ -1680,7 +1682,7 @@ class FileDataStorageManager private constructor(
         ) { Log_OC.e(TAG, it.message, it) }
 
         val files = cursor?.use { it.mapRows(::createFileInstanceFromVirtual) }.orEmpty().filterNotNull()
-        val filteredFiles = if (onlyImages) files.filter { MimeTypeUtil.isImage(it) } else files
+        val filteredFiles = if (onlyImages) files.filter { it.matchesMimeType(MimeTypeUtil::isImage) } else files
 
         return filteredFiles.toMutableList().apply { sort() }
     }
