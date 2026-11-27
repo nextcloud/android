@@ -579,6 +579,8 @@
     <string name="logs_menu_refresh">يېڭىلاش</string>
     <string name="logs_menu_search">ئىزدەش خاتىرىلىرى</string>
     <string name="logs_menu_send">ئېلېكترونلۇق خەت ئارقىلىق خاتىرە ئەۋەتىڭ</string>
+    <string name="logs_menu_share">ھەمبەھىرلەش</string>
+    <string name="logs_open_in_files">ھۆججەتلەرنى ئېچىڭ</string>
     <string name="logs_status_filtered">خاتىرە:%1$d kB ، سوئال%4$d  ms دىكى%2$d/ %3$d ماسلاشتى</string>
     <string name="logs_status_loading">Loading…</string>
     <string name="logs_status_not_filtered">خاتىرە:%1$d kB ، سۈزگۈچ يوق</string>

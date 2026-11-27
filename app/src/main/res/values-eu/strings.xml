@@ -579,6 +579,8 @@
     <string name="logs_menu_refresh">Freskatu</string>
     <string name="logs_menu_search">Bilatu egunkariak</string>
     <string name="logs_menu_send">Bidali egunkariak posta elektroniko bidez</string>
+    <string name="logs_menu_share">Partekatu</string>
+    <string name="logs_open_in_files">Ireki Fitxategiak aplikazioan</string>
     <string name="logs_status_filtered">Egunkariak: %1$d kB, kontsultak %3$d / %2$d topatu ditu %4$d ms-tan</string>
     <string name="logs_status_loading">Kargatzen…</string>
     <string name="logs_status_not_filtered">Egunkariak: %1$d kB, iragazkirik ez</string>

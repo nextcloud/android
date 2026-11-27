@@ -621,6 +621,8 @@
     <string name="logs_menu_refresh">Įkelti iš naujo</string>
     <string name="logs_menu_search">Ieškoti žurnalo įrašų</string>
     <string name="logs_menu_send">Siųsti žurnalo įrašus el. paštu</string>
+    <string name="logs_menu_share">Bendrinti</string>
+    <string name="logs_open_in_files">Atidaryti failuose</string>
     <string name="logs_status_filtered">Žurnalo įrašai: %1$d kB, užklausą atitiko %2$d/%3$d per %4$d ms</string>
     <string name="logs_status_loading">Įkeliama…</string>
     <string name="logs_status_not_filtered">Žurnalo įrašai: %1$d kB, nėra filtro</string>

@@ -522,6 +522,8 @@
     <string name="logs_menu_refresh">Päivitä</string>
     <string name="logs_menu_search">Etsi lokitiedoista</string>
     <string name="logs_menu_send">Lähetä lokit sähköpostilla</string>
+    <string name="logs_menu_share">Jaa</string>
+    <string name="logs_open_in_files">Avaa tiedostosovelluksessa</string>
     <string name="logs_status_filtered">Lokit: %1$d kt, kyselyä vastasi %2$d / %3$d ajassa %4$d ms</string>
     <string name="logs_status_loading">Ladataan…</string>
     <string name="logs_status_not_filtered">Lokit: %1$d kt, ei filtteriä</string>

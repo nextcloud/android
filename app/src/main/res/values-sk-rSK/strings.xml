@@ -678,6 +678,8 @@
     <string name="logs_menu_refresh">Obnoviť</string>
     <string name="logs_menu_search">Hľadať v záznamoch</string>
     <string name="logs_menu_send">Odoslať logy e-mailom</string>
+    <string name="logs_menu_share">Zdieľať</string>
+    <string name="logs_open_in_files">Otvoriť v súboroch</string>
     <string name="logs_status_filtered">Záznamy: %1$d kB, Vyhovujúci dopyt %2$d / %3$d za %4$d ms</string>
     <string name="logs_status_loading">Načítava sa…</string>
     <string name="logs_status_not_filtered">Záznamy: %1$d kB, bez filtra</string>

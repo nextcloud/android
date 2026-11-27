@@ -676,6 +676,8 @@
     <string name="logs_menu_refresh">Värskenda</string>
     <string name="logs_menu_search">Otsi  logisid</string>
     <string name="logs_menu_send">Saada logid e-postiga</string>
+    <string name="logs_menu_share">Jaga</string>
+    <string name="logs_open_in_files">Ava failirakenduses</string>
     <string name="logs_status_filtered">Logid: %1$d kB, vasteid päringule %2$d / %3$d, päringu aeg %4$d msek</string>
     <string name="logs_status_loading">Laadin…</string>
     <string name="logs_status_not_filtered">Logid: %1$d kB, filtrit pole</string>

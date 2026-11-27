@@ -678,6 +678,7 @@
     <string name="logs_menu_refresh">Opdater</string>
     <string name="logs_menu_search">Søg i log</string>
     <string name="logs_menu_send">Send logs på mail</string>
+    <string name="logs_open_in_files">Åbn i Filer</string>
     <string name="logs_status_filtered">Logs: %1$d kB, forespørgslen fandt %2$d / %3$d på %4$d ms</string>
     <string name="logs_status_loading">Indlæser …</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, ingen filter</string>

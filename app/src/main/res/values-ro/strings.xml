@@ -672,6 +672,8 @@
     <string name="logs_menu_refresh">Reîmprospătează</string>
     <string name="logs_menu_search">Caută în jurnale</string>
     <string name="logs_menu_send">Trimite jurnalele prin e-mail</string>
+    <string name="logs_menu_share">Partajare</string>
+    <string name="logs_open_in_files">Deschide în Fișiere</string>
     <string name="logs_status_filtered">Jurnale: %1$d kB, căutarea a găsit %2$d / %3$d în %4$d ms</string>
     <string name="logs_status_loading">Se încarcă…</string>
     <string name="logs_status_not_filtered">Jurnale: %1$d kB, fără filtru</string>
