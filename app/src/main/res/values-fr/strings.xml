@@ -676,6 +676,8 @@
     <string name="logs_menu_refresh">Actualiser</string>
     <string name="logs_menu_search">Rechercher dans les logs</string>
     <string name="logs_menu_send">Envoyer les logs par e-mail</string>
+    <string name="logs_menu_share">Partager</string>
+    <string name="logs_open_in_files">Ouvrir dans Fichiers</string>
     <string name="logs_status_filtered">Logs : %1$d Ko, correspondances : %2$d/%3$d en %4$d ms</string>
     <string name="logs_status_loading">Chargement…</string>
     <string name="logs_status_not_filtered">Logs : %1$d Ko, aucun filtre</string>

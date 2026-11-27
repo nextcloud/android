@@ -469,6 +469,8 @@
     <string name="logs_menu_refresh">Ανανέωση</string>
     <string name="logs_menu_search">Αναζήτηση καταγραφών</string>
     <string name="logs_menu_send">Αποστολή καταγραφών μέσω ηλεκτρονικής αλληλογραφίας</string>
+    <string name="logs_menu_share">Κοινή χρήση</string>
+    <string name="logs_open_in_files">Άνοιγμα στα αρχεία</string>
     <string name="logs_status_filtered">Καταγραφές:%1$dkB, ενημερώθηκαν %2$d / %3$dσε %4$d ms</string>
     <string name="logs_status_loading">Φορτώνει…</string>
     <string name="logs_status_not_filtered">Αρχεία καταγραφής: %1$d kb, χωρίς φίλτρο</string>

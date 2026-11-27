@@ -552,6 +552,8 @@
     <string name="logs_menu_refresh">Aggiorna</string>
     <string name="logs_menu_search">Cerca log</string>
     <string name="logs_menu_send">Invia log tramite email</string>
+    <string name="logs_menu_share">Condividi</string>
+    <string name="logs_open_in_files">Apri in file</string>
     <string name="logs_status_filtered">Log: %1$d kB, query verificata %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Caricamento in corso…</string>
     <string name="logs_status_not_filtered">Log: %1$d kB, nessun filtro</string>

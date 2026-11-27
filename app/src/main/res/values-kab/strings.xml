@@ -625,6 +625,7 @@
     <string name="logs_menu_refresh">Sismeḍ</string>
     <string name="logs_menu_search">Nadi iɣmisen</string>
     <string name="logs_menu_send">Azen iɣmisen s imayl</string>
+    <string name="logs_menu_share">Bḍu</string>
     <string name="logs_status_filtered">Aɣmis: %1$d KAṬ, tuttra temṣada %2$d / %3$d deg %4$d n mili-tasint</string>
     <string name="logs_status_loading">Asali...</string>
     <string name="logs_status_not_filtered">Aɣmis: %1$d KAṬ, ulac tastayt</string>

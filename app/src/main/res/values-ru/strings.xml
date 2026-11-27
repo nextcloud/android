@@ -678,6 +678,8 @@
     <string name="logs_menu_refresh">Обновить</string>
     <string name="logs_menu_search">Искать в журнале</string>
     <string name="logs_menu_send">Отправить журналы по эл. почте</string>
+    <string name="logs_menu_share">Поделиться</string>
+    <string name="logs_open_in_files">Открыть в приложении «Файлы»</string>
     <string name="logs_status_filtered">Журнал: %1$d кБ, совпадений по запросу: %2$d из %3$d, %4$d мс</string>
     <string name="logs_status_loading">Загрузка…</string>
     <string name="logs_status_not_filtered">Журнал: %1$d кБ, без фильтра</string>
