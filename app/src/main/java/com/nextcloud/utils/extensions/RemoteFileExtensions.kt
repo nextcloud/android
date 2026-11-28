@@ -80,46 +80,48 @@ fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
 fun RemoteFile.toOCFile(): OCFile {
     val remote = this
     return OCFile(remote.remotePath).apply {
+        updateRemoteProperties(remote)
         decryptedRemotePath = remote.remotePath
-        creationTimestamp = remote.creationTimestamp
-        uploadTimestamp = remote.uploadTimestamp
-        val isRemoteDirectory = MimeType.DIRECTORY.equals(remote.mimeType, ignoreCase = true)
-        fileLength = if (isRemoteDirectory) remote.size else remote.length
-        mimeType = remote.mimeType
-        modificationTimestamp = remote.modifiedTimestamp
-        etag = remote.etag
-        etagOnServer = remote.etag
-        permissions = remote.permissions
-        remoteId = remote.remoteId
         localId = remote.localId
         isFavorite = remote.isFavorite
         if (isFolder) {
             isEncrypted = remote.isEncrypted
         }
         mountType = remote.mountType
-        isPreviewAvailable = remote.isHasPreview
         unreadCommentsCount = remote.unreadCommentsCount
         ownerId = remote.ownerId
         ownerDisplayName = remote.ownerDisplayName
         note = remote.note
-
         sharees = remote.getShareeList()
         isSharedWithSharee = remote.sharedWithSharee()
         isSharedViaLink = remote.sharedViaLink()
-
         richWorkspace = remote.richWorkspace
-        isLocked = remote.isLocked
-        lockType = remote.lockType
-        lockOwnerId = remote.lockOwner
-        lockOwnerDisplayName = remote.lockOwnerDisplayName
-        lockOwnerEditor = remote.lockOwnerEditor
-        lockTimestamp = remote.lockTimestamp
-        lockTimeout = remote.lockTimeout
-        lockToken = remote.lockToken
         tags = remote.tags()
-        imageDimension = remote.imageDimension
-        geoLocation = remote.geoLocation
         setLivePhoto(remote.livePhoto)
         isHidden = remote.hidden
     }
+}
+
+fun OCFile.updateRemoteProperties(remote: RemoteFile) {
+    creationTimestamp = remote.creationTimestamp
+    uploadTimestamp = remote.uploadTimestamp
+    val isRemoteDirectory = MimeType.DIRECTORY.equals(remote.mimeType, ignoreCase = true)
+    fileLength = if (isRemoteDirectory) remote.size else remote.length
+    mimeType = remote.mimeType
+    modificationTimestamp = remote.modifiedTimestamp
+    etag = remote.etag
+    etagOnServer = remote.etag
+    permissions = remote.permissions
+    remoteId = remote.remoteId
+    isPreviewAvailable = remote.isHasPreview
+    isLocked = remote.isLocked
+    lockType = remote.lockType
+    lockOwnerId = remote.lockOwner
+    lockOwnerDisplayName = remote.lockOwnerDisplayName
+    lockOwnerEditor = remote.lockOwnerEditor
+    lockTimestamp = remote.lockTimestamp
+    lockTimeout = remote.lockTimeout
+    lockToken = remote.lockToken
+    imageDimension = remote.imageDimension
+    geoLocation = remote.geoLocation
 }

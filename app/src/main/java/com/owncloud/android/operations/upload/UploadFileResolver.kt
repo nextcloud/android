@@ -7,8 +7,7 @@
 
 package com.owncloud.android.operations.upload
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
-import com.nextcloud.utils.extensions.toOCFile
+import com.nextcloud.utils.extensions.updateRemoteProperties
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
@@ -80,34 +79,8 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
         }.also { storageManager.saveFile(it) }
     }
 
-    @SuppressFBWarnings(
-        value = ["CE_CLASS_ENVY"],
-        justification = "Upload completion must refresh remote properties without replacing the local file identity."
-    )
     fun updateOCFile(file: OCFile, remoteFile: RemoteFile) {
-        val remote = remoteFile.toOCFile()
-        file.apply {
-            creationTimestamp = remote.creationTimestamp
-            fileLength = remote.fileLength
-            mimeType = remote.mimeType
-            modificationTimestamp = remote.modificationTimestamp
-            modificationTimestampAtLastSyncForData = remote.modificationTimestamp
-            etag = remote.etag
-            etagOnServer = remote.etag
-            remoteId = remote.remoteId
-            isLocked = remote.isLocked
-            lockType = remote.lockType
-            lockOwnerId = remote.lockOwnerId
-            lockOwnerDisplayName = remote.lockOwnerDisplayName
-            lockOwnerEditor = remote.lockOwnerEditor
-            lockTimestamp = remote.lockTimestamp
-            lockTimeout = remote.lockTimeout
-            lockToken = remote.lockToken
-            permissions = remote.permissions
-            uploadTimestamp = remote.uploadTimestamp
-            isPreviewAvailable = remote.isPreviewAvailable
-            imageDimension = remote.imageDimension
-            geoLocation = remote.geoLocation
-        }
+        file.updateRemoteProperties(remoteFile)
+        file.modificationTimestampAtLastSyncForData = remoteFile.modifiedTimestamp
     }
 }

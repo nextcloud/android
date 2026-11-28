@@ -76,6 +76,46 @@ class UploadFileLockStateTest {
         }
     }
 
+    @Test
+    fun uploadRefreshPreservesLocalAndListingStateWhileUpdatingRemoteProperties() {
+        val file = previouslyLockedFile().apply {
+            localId = 12
+            isFavorite = true
+            ownerId = "listing-owner"
+        }
+        val remote = RemoteFile("/document.docx").apply {
+            mimeType = "application/octet-stream"
+            length = 23
+            creationTimestamp = 1000
+            modifiedTimestamp = 2000
+            uploadTimestamp = 3000
+            etag = "new-etag"
+            remoteId = "new-id"
+            permissions = "RW"
+        }
+
+        resolver.updateOCFile(file, remote)
+
+        assertEquals(7L, file.fileId)
+        assertEquals(3L, file.parentId)
+        assertEquals("/local/document.docx", file.storagePath)
+        assertEquals(12L, file.localId)
+        assertTrue(file.isFavorite)
+        assertEquals("listing-owner", file.ownerId)
+        assertEquals(remote.mimeType, file.mimeType)
+        assertEquals(remote.length, file.fileLength)
+        assertEquals(remote.creationTimestamp, file.creationTimestamp)
+        assertEquals(remote.modifiedTimestamp, file.modificationTimestamp)
+        assertEquals(remote.modifiedTimestamp, file.modificationTimestampAtLastSyncForData)
+        assertEquals(remote.uploadTimestamp, file.uploadTimestamp)
+        assertEquals(remote.etag, file.etag)
+        assertEquals(remote.etag, file.etagOnServer)
+        assertEquals(remote.remoteId, file.remoteId)
+        assertEquals(remote.permissions, file.permissions)
+        assertFalse(file.isLocked)
+        assertNull(file.lockToken)
+    }
+
     private fun previouslyLockedFile() = OCFile("/document.docx").apply {
         fileId = 7
         parentId = 3
