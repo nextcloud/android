@@ -446,6 +446,7 @@
     <string name="error_report_issue_action">Melden</string>
     <string name="error_report_issue_text">Problem melden? (benötigt ein GitHub-Konto)</string>
     <string name="error_retrieving_file">Fehler beim Abruf der Datei</string>
+    <string name="error_retrieving_mnemonic">Fehler beim Abrufen der Passphrase!</string>
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
     <string name="error_saving_local_file">Fehler beim Speichern der lokalen Datei</string>
     <string name="error_setting_status_message">Fehler beim Festlegen der Statusnachricht!</string>
@@ -673,15 +674,19 @@
     <string name="log_send_no_mail_app">Keine App zum Senden von Protokolldateien gefunden. Bitte installieren Sie einen E-Mail-Client.</string>
     <string name="login">Anmelden</string>
     <string name="login_url_helper_text">Der Link zu Ihrer %1$s Webseite, wenn Sie diese im Browser öffnen.</string>
+    <string name="logs_exported">Protokolle eportiert</string>
     <string name="logs_menu_delete">Lösche Logs</string>
     <string name="logs_menu_export">Protokolle exportieren</string>
     <string name="logs_menu_refresh">Aktualisieren</string>
     <string name="logs_menu_search">Suche Logs</string>
     <string name="logs_menu_send">Protokolldateien per E-Mail versenden</string>
+    <string name="logs_menu_share">Teilen</string>
+    <string name="logs_no_files_app">Keine App zum Öffnen des Ordners \"Downloads\" gefunden</string>
     <string name="logs_open_in_files">In Dateien öffnen</string>
     <string name="logs_status_filtered">Logs: %1$d kB, Abfragetreffer %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Lade …</string>
     <string name="logs_status_not_filtered">Logs: %1$d kB, kein Filter</string>
+    <string name="logs_summary">Diese Informationen teilen, um Unterstützung für die App zu erhalten</string>
     <string name="logs_title">Protokolle (Logs)</string>
     <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
     <string name="manage_space_auto_upload_clear_data">Automatisch hochgeladene Dateien lokal löschen</string>
@@ -845,6 +850,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner verwenden</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Unterordneroptionen</string>
     <string name="prefs_keys_exist">Diesem Client Ende-zu-Ende-Verschlüsselung hinzufügen</string>
+    <string name="prefs_keys_exist_summary">Die Ende-zu-Ende-Verschlüsselung wurde bereits auf einem anderen Client eingerichtet. Zum Synchronisieren und Entschlüsseln der Dateien auf diesem Client bitte die Passphrase eingeben.</string>
     <string name="prefs_license">Lizenz</string>
     <string name="prefs_lock">App-PIN</string>
     <string name="prefs_lock_device_credentials_enabled">Geräte-Anmeldedaten aktiviert</string>
@@ -1148,6 +1154,7 @@
     <string name="two_way_sync_activity_empty_list_desc">Um einen Ordner mit bidirektionaler Synchronisierung einzurichten, aktivieren Sie dies bitte auf der Registerkarte \"Details\" des betreffenden Ordners.</string>
     <string name="two_way_sync_activity_empty_list_title">Zwei-Wege-Synchronisierung nicht eingerichtet</string>
     <string name="two_way_sync_activity_title">Interne 2-Wege-Synchronisierung</string>
+    <string name="two_way_sync_file_details_enable">Interne 2-Wege-Synchronisierung aktivieren</string>
     <string name="unexpected_error_occurred">Es ist ein unerwarteter Fehler aufgetreten</string>
     <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web …</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web …</string>

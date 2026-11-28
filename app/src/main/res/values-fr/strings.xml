@@ -169,8 +169,10 @@
     <string name="backup_list_adapter_local_contacts">Contacts locaux</string>
     <string name="backup_settings">Paramètres de sauvegarde</string>
     <string name="backup_title">Sauvegarde des contacts et de l\'agenda</string>
+    <string name="battery_optimization_banner_message">L\'usage de la batterie par Nextcloud est restreint. Par conséquent, Android peut retarder le téléversement automatique. Avec un usage non restreint de la batterie, le téléversement automatique continue de fonctionner même en mode d\'économie d\'énergie.</string>
     <string name="battery_optimization_close">Fermer</string>
     <string name="battery_optimization_disable">Désactiver</string>
+    <string name="battery_optimization_exempt_action">Autoriser l\'usage non restreint de la batterie</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil. Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
     <string name="battery_optimization_title">Optimisation de la batterie</string>
     <string name="bottom_navigation_menu_assistant_label">Assistant</string>
@@ -444,6 +446,7 @@
     <string name="error_report_issue_action">Signaler</string>
     <string name="error_report_issue_text">Signaler le problème dans l’outil de suivi ? (nécessite un compte GitHub)</string>
     <string name="error_retrieving_file">Erreur lors de la récupération du fichier</string>
+    <string name="error_retrieving_mnemonic">Erreur lors de l\'obtention de la phrase de récupération !</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_saving_local_file">Erreur lors de l\'enregistrement du fichier local</string>
     <string name="error_setting_status_message">Erreur lors de la définition du message de statut !</string>
@@ -671,16 +674,19 @@
     <string name="log_send_no_mail_app">Aucune application permettant d’envoyer les logs n’a été trouvée. Veuillez installer un client e-mail.</string>
     <string name="login">Se connecter</string>
     <string name="login_url_helper_text">Lien vers votre interface web %1$s telle qu’elle s’ouvre dans le navigateur.</string>
+    <string name="logs_exported">Journaux exportés</string>
     <string name="logs_menu_delete">Supprimer les logs</string>
     <string name="logs_menu_export">Exporter les logs</string>
     <string name="logs_menu_refresh">Actualiser</string>
     <string name="logs_menu_search">Rechercher dans les logs</string>
     <string name="logs_menu_send">Envoyer les logs par e-mail</string>
     <string name="logs_menu_share">Partager</string>
+    <string name="logs_no_files_app">Aucune application trouvée pour ouvrir le dossier Téléchargements</string>
     <string name="logs_open_in_files">Ouvrir dans Fichiers</string>
     <string name="logs_status_filtered">Logs : %1$d Ko, correspondances : %2$d/%3$d en %4$d ms</string>
     <string name="logs_status_loading">Chargement…</string>
     <string name="logs_status_not_filtered">Logs : %1$d Ko, aucun filtre</string>
+    <string name="logs_summary">Partagez ces informations pour obtenir de l\'assistance sur l\'application</string>
     <string name="logs_title">Logs</string>
     <string name="maintenance_mode">Le serveur est en mode maintenance</string>
     <string name="manage_space_auto_upload_clear_data">Supprimer localement les fichiers téléversés automatiquement</string>
@@ -797,6 +803,8 @@
     <string name="player_media_controls_close_action_title">Fermer</string>
     <string name="please_select_a_server">Veuillez sélectionner un serveur…</string>
     <string name="power_save_check_dialog_message">Désactiver la vérification de l’économie d’énergie peut entraîner le téléversement de fichiers lorsque la batterie est faible !</string>
+    <string name="power_saving_banner_ignored_by_app_message">Le mode d\'économie d\'énergie est actif mais Nextcloud dispose d\'un usage non restreint de la batterie. Par conséquent, le téléversement automatique continue de fonctionner.</string>
+    <string name="power_saving_banner_restricting_app_message">Le mode d\'économie d\'énergie est actif. Par conséquent, le téléversement automatique est suspendu jusqu\'à ce que vous désactiviez ce mode.</string>
     <string name="power_saving_settings_action">Ouvrir les paramètres d\'économie d\'énergie</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier d’origine</string>
@@ -842,6 +850,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Options du sous-dossier</string>
     <string name="prefs_keys_exist">Ajouter le chiffrement de bout en bout à ce client</string>
+    <string name="prefs_keys_exist_summary">Le chiffrement de bout en bout a déjà été configuré sur un autre client. Veuillez entrer votre phrase de récupération pour permettre à ce client de synchroniser et déchiffrer les fichiers.</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock">Code de sécurité de l’application</string>
     <string name="prefs_lock_device_credentials_enabled">Identifiants de l’appareil activés</string>
@@ -1145,6 +1154,7 @@
     <string name="two_way_sync_activity_empty_list_desc">Pour configurer un dossier de synchronisation bidirectionnelle, veuillez l\'activer dans l\'onglet détails du dossier en question.</string>
     <string name="two_way_sync_activity_empty_list_title">La synchronisation bidirectionnelle n\'est pas configurée</string>
     <string name="two_way_sync_activity_title">Synchronisation interne bidirectionnelle</string>
+    <string name="two_way_sync_file_details_enable">Activer la synchronisation interne bidirectionnelle</string>
     <string name="unexpected_error_occurred">Une erreur est survenue</string>
     <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable. Vous pouvez synchroniser pour mettre à jour les données. Redirection vers la version web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact introuvable. Vous pouvez synchroniser pour mettre à jour les données. Redirection vers la version web…</string>

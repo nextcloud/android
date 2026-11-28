@@ -446,6 +446,7 @@
     <string name="error_report_issue_action">Сообщить</string>
     <string name="error_report_issue_text">Сообщить о проблеме в трекере? (требуется учётная запись GitHub)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
+    <string name="error_retrieving_mnemonic">Ошибка получения мнемофразы!</string>
     <string name="error_retrieving_templates">Ошибка получения шаблонов</string>
     <string name="error_saving_local_file">Ошибка при сохранении локального файла</string>
     <string name="error_setting_status_message">Ошибка при установке сообщения статуса</string>
@@ -673,16 +674,19 @@
     <string name="log_send_no_mail_app">Приложение для отправки журналов не найдено. Установите почтовый клиент.</string>
     <string name="login">Войти</string>
     <string name="login_url_helper_text">Ссылка для входа в %1$s через веб-интерфейс в браузере.</string>
+    <string name="logs_exported">Журналы экспортированы</string>
     <string name="logs_menu_delete">Удалить журналы</string>
     <string name="logs_menu_export">Экспортировать журналы</string>
     <string name="logs_menu_refresh">Обновить</string>
     <string name="logs_menu_search">Искать в журнале</string>
     <string name="logs_menu_send">Отправить журналы по эл. почте</string>
     <string name="logs_menu_share">Поделиться</string>
+    <string name="logs_no_files_app">Не найдено приложение для открытия папки «Загрузки»</string>
     <string name="logs_open_in_files">Открыть в приложении «Файлы»</string>
     <string name="logs_status_filtered">Журнал: %1$d кБ, совпадений по запросу: %2$d из %3$d, %4$d мс</string>
     <string name="logs_status_loading">Загрузка…</string>
     <string name="logs_status_not_filtered">Журнал: %1$d кБ, без фильтра</string>
+    <string name="logs_summary">Поделитесь этими сведениями, чтобы получить поддержку по приложению.</string>
     <string name="logs_title">Журнал</string>
     <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
     <string name="manage_space_auto_upload_clear_data">Удалить автозагруженные файлы с устройства</string>
@@ -846,6 +850,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Формат вложенных папок</string>
     <string name="prefs_keys_exist">Подключить сквозное шифрование на этом клиенте</string>
+    <string name="prefs_keys_exist_summary">Сквозное шифрование уже настроено на другом клиенте. Введите мнемофразу, чтобы этот клиент мог синхронизировать и расшифровывать файлы.</string>
     <string name="prefs_license">Лицензия</string>
     <string name="prefs_lock">Код доступа к приложению</string>
     <string name="prefs_lock_device_credentials_enabled">Системная защитная блокировка включена</string>
@@ -1149,6 +1154,7 @@
     <string name="two_way_sync_activity_empty_list_desc">Чтобы настроить папку с двусторонней синхронизацией, включите её на вкладке подробностей соответствующей папки.</string>
     <string name="two_way_sync_activity_empty_list_title">Двусторонняя синхронизация не настроена</string>
     <string name="two_way_sync_activity_title">Внутренняя двусторонняя синхронизация</string>
+    <string name="two_way_sync_file_details_enable">Включить внутреннюю двустороннюю синхронизацию</string>
     <string name="unexpected_error_occurred">Произошла неожиданная ошибка</string>
     <string name="unified_search_fragment_calendar_event_not_found">Событие не найдено — его можно обновить синхронизацией. Переход на веб-страницу…</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не найден — его можно обновить синхронизацией. Переход на веб-страницу…</string>
