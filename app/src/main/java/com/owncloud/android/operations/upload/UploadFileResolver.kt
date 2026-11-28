@@ -7,6 +7,7 @@
 
 package com.owncloud.android.operations.upload
 
+import com.nextcloud.utils.extensions.updateRemoteProperties
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
@@ -79,20 +80,7 @@ class UploadFileResolver(private val operation: UploadFileOperation) {
     }
 
     fun updateOCFile(file: OCFile, remoteFile: RemoteFile) {
-        file.apply {
-            creationTimestamp = remoteFile.creationTimestamp
-            fileLength = remoteFile.length
-            mimeType = remoteFile.mimeType
-            modificationTimestamp = remoteFile.modifiedTimestamp
-            modificationTimestampAtLastSyncForData = remoteFile.modifiedTimestamp
-            etag = remoteFile.etag
-            etagOnServer = remoteFile.etag
-            remoteId = remoteFile.remoteId
-            permissions = remoteFile.permissions
-            uploadTimestamp = remoteFile.uploadTimestamp
-            isPreviewAvailable = remoteFile.isHasPreview
-            imageDimension = remoteFile.imageDimension
-            geoLocation = remoteFile.geoLocation
-        }
+        file.updateRemoteProperties(remoteFile)
+        file.modificationTimestampAtLastSyncForData = remoteFile.modifiedTimestamp
     }
 }

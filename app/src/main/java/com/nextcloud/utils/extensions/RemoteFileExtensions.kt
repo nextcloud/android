@@ -16,6 +16,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.lib.resources.tags.Tag
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FileUtil
+import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 
 private const val TAG = "RemoteFileExtensions"
@@ -74,4 +75,53 @@ fun RemoteFile.areImageDimensionsSame(path: String): Boolean {
 
     return localFileImageDimension.first.toFloat() == remoteFileImageDimension.width &&
         localFileImageDimension.second.toFloat() == remoteFileImageDimension.height
+}
+
+fun RemoteFile.toOCFile(): OCFile {
+    val remote = this
+    return OCFile(remote.remotePath).apply {
+        updateRemoteProperties(remote)
+        decryptedRemotePath = remote.remotePath
+        localId = remote.localId
+        isFavorite = remote.isFavorite
+        if (isFolder) {
+            isEncrypted = remote.isEncrypted
+        }
+        mountType = remote.mountType
+        unreadCommentsCount = remote.unreadCommentsCount
+        ownerId = remote.ownerId
+        ownerDisplayName = remote.ownerDisplayName
+        note = remote.note
+        sharees = remote.getShareeList()
+        isSharedWithSharee = remote.sharedWithSharee()
+        isSharedViaLink = remote.sharedViaLink()
+        richWorkspace = remote.richWorkspace
+        tags = remote.tags()
+        setLivePhoto(remote.livePhoto)
+        isHidden = remote.hidden
+    }
+}
+
+fun OCFile.updateRemoteProperties(remote: RemoteFile) {
+    creationTimestamp = remote.creationTimestamp
+    uploadTimestamp = remote.uploadTimestamp
+    val isRemoteDirectory = MimeType.DIRECTORY.equals(remote.mimeType, ignoreCase = true)
+    fileLength = if (isRemoteDirectory) remote.size else remote.length
+    mimeType = remote.mimeType
+    modificationTimestamp = remote.modifiedTimestamp
+    etag = remote.etag
+    etagOnServer = remote.etag
+    permissions = remote.permissions
+    remoteId = remote.remoteId
+    isPreviewAvailable = remote.isHasPreview
+    isLocked = remote.isLocked
+    lockType = remote.lockType
+    lockOwnerId = remote.lockOwner
+    lockOwnerDisplayName = remote.lockOwnerDisplayName
+    lockOwnerEditor = remote.lockOwnerEditor
+    lockTimestamp = remote.lockTimestamp
+    lockTimeout = remote.lockTimeout
+    lockToken = remote.lockToken
+    imageDimension = remote.imageDimension
+    geoLocation = remote.geoLocation
 }
