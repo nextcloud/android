@@ -41,6 +41,7 @@ import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
 import com.nextcloud.client.database.migrations.MIGRATION_88_89
 import com.nextcloud.client.database.migrations.MIGRATION_97_98
+import com.nextcloud.client.database.migrations.MIGRATION_106_107
 import com.nextcloud.client.database.migrations.MIGRATION_99_100
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
@@ -109,6 +110,7 @@ import com.owncloud.android.db.ProviderMeta
     ],
     exportSchema = true
 )
+@Suppress("Detekt.UnnecessaryAbstractClass") // needed by Room
 @TypeConverters(OfflineOperationTypeConverter::class)
 abstract class NextcloudDatabase : RoomDatabase() {
 
@@ -145,6 +147,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addMigrations(MIGRATION_88_89)
                     .addMigrations(MIGRATION_97_98)
                     .addMigrations(MIGRATION_99_100)
+                    .addMigrations(MIGRATION_106_107)
                     .build()
             }
             return instance!!
