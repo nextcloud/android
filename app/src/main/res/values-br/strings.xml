@@ -428,6 +428,7 @@
     <string name="logs_menu_delete">Lemel ar gazetennoù</string>
     <string name="logs_menu_refresh">Freskaat</string>
     <string name="logs_menu_search">Klast kazetennoù</string>
+    <string name="logs_menu_share">Rannañ</string>
     <string name="logs_status_filtered">Kazetenn : %1$d kB, goulenn a glot %2$d / %3$d e %4$d ms</string>
     <string name="logs_status_loading">O Kargañ</string>
     <string name="logs_status_not_filtered">kazetennoù : %1$d kB, filtr ebet</string>

@@ -527,6 +527,8 @@
     <string name="logs_menu_refresh">Actualitza</string>
     <string name="logs_menu_search">Cerca als registres</string>
     <string name="logs_menu_send">Envia els registres per correu electrònic</string>
+    <string name="logs_menu_share">Comparteix</string>
+    <string name="logs_open_in_files">Obre a Fitxers</string>
     <string name="logs_status_filtered">Registres: %1$d kB, la consulta ha trobat %2$d/%3$d en %4$d ms</string>
     <string name="logs_status_loading">S\'està carregant…</string>
     <string name="logs_status_not_filtered">Registres: %1$d kB, sense filtre</string>

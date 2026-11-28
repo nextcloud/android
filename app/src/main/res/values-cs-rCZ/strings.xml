@@ -608,6 +608,8 @@
     <string name="logs_menu_refresh">Načíst znovu</string>
     <string name="logs_menu_search">Prohledat záznamy událostí</string>
     <string name="logs_menu_send">Posílat záznamy událostí e-mailem</string>
+    <string name="logs_menu_share">Nasdílet</string>
+    <string name="logs_open_in_files">Otevřít v aplikaci Soubory</string>
     <string name="logs_status_filtered">Záznamy událostí: %1$d kB, dotazu odpovídalo %2$d / %3$d za %4$d ms</string>
     <string name="logs_status_loading">Načítání …</string>
     <string name="logs_status_not_filtered">Záznamy událostí: %1$d kB, žádný filtr</string>
