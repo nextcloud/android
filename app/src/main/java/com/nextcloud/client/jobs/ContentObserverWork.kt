@@ -14,14 +14,13 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
 import com.owncloud.android.datamodel.AutoUploadFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.FilesSyncHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
  * This work is triggered when OS detects change in media folders.
  *
- * It fires media detection worker and auto upload worker and finishes immediately.
+ * It stores the changed files of each enabled auto upload folder and starts their auto upload workers.
  *
  */
 class ContentObserverWork(
@@ -43,18 +42,11 @@ class ContentObserverWork(
         Log_OC.d(TAG, "started")
 
         try {
-            if (params.triggeredContentUris.isNotEmpty()) {
+            if (params.triggeredContentAuthorities.isNotEmpty()) {
                 Log_OC.d(TAG, "📸 content observer detected file changes.")
                 checkAndTriggerAutoUpload()
-
-                // prevent worker fail because of another worker
-                try {
-                    backgroundJobManager.startMediaFoldersDetectionJob()
-                } catch (e: Exception) {
-                    Log_OC.d(TAG, "⚠️ media folder detection job failed :$e")
-                }
             } else {
-                Log_OC.d(TAG, "⚠️ triggeredContentUris is empty — nothing to sync.")
+                Log_OC.d(TAG, "⚠️ triggeredContentAuthorities is empty — nothing to sync.")
             }
 
             val result = Result.success()
@@ -110,13 +102,10 @@ class ContentObserverWork(
                         )
                         autoUploadHelper.insertEntries(folder)
                     }
+
+                    backgroundJobManager.startAutoUpload(folder, scanLocalFolder = false)
                 }
 
-            FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
-                syncedFolderProvider,
-                backgroundJobManager,
-                false
-            )
             Log_OC.d(TAG, "✅ auto upload triggered successfully for ${contentUris.size} file(s).")
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ Failed to start auto upload for changed files: ${e.message}", e)

@@ -10,6 +10,7 @@ package com.nextcloud.client.jobs
 
 import android.content.Context
 import android.net.Uri
+import android.provider.MediaStore
 import androidx.work.WorkerParameters
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.device.PowerManagementService
@@ -71,6 +72,7 @@ class ContentObserverWorkTest {
         )
         val uri: Uri = Mockito.mock(Uri::class.java)
         whenever(params.triggeredContentUris).thenReturn(listOf(uri))
+        whenever(params.triggeredContentAuthorities).thenReturn(listOf(MediaStore.AUTHORITY))
     }
 
     @After
@@ -83,7 +85,7 @@ class ContentObserverWorkTest {
         runBlocking {
             // GIVEN
             //      nothing to sync
-            whenever(params.triggeredContentUris).thenReturn(emptyList())
+            whenever(params.triggeredContentAuthorities).thenReturn(emptyList())
 
             // WHEN
             //      worker is called

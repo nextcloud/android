@@ -173,11 +173,6 @@ class FileSystemRepository(
                     null
                 }
 
-                Log_OC.d(
-                    TAG,
-                    "Found file: $filePath (created=$creationTimeMs, modified=$lastModifiedMs)"
-                )
-
                 insertOrReplace(filePath, lastModifiedMs, creationTimeMs, syncedFolder, checkFileType)
             }
         }
@@ -210,7 +205,6 @@ class FileSystemRepository(
 
             if (entity != null && hasNotChanged && fileSentForUpload) {
                 if (wasUploadFinished(entity, syncedFolder, localPath, file)) {
-                    Log_OC.d(TAG, "File hasn't changed since last scan. skipping: $localPath")
                     return
                 }
 

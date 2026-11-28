@@ -251,11 +251,7 @@ open class MainApp :
             return
         }
 
-        FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(
-            syncedFolderProvider,
-            backgroundJobManager,
-            overridePowerSaving = false
-        )
+        FilesSyncHelper.startAutoUploadForEnabledSyncedFolders(syncedFolderProvider, backgroundJobManager)
         preferences.setLastAutoUploadOnStartTime(System.currentTimeMillis())
     }
 
