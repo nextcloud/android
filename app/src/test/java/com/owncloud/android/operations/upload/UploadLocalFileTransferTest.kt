@@ -230,6 +230,35 @@ class UploadLocalFileTransferTest {
             .copyToTemporalFileIfNeeded(OCFile(REMOTE_PATH), sourceFile, targetFile(TARGET_NAME).path)
     }
 
+    @Test
+    fun `temporal copy cleanup preserves the original source`() {
+        val file = OCFile(REMOTE_PATH)
+        val transfer = createTransfer()
+        transfer.copyToTemporalFileIfNeeded(file, sourceFile, targetFile(TARGET_NAME).path)
+
+        transfer.deleteTemporalCopyUnlessConflict(ResultCode.OK)
+
+        assertFalse(File(file.storagePath).exists())
+        assertEquals(CONTENT, sourceFile.readText())
+    }
+
+    @Test
+    fun `conflicted temporal copy is retained until the conflict is resolved`() {
+        val file = OCFile(REMOTE_PATH)
+        val transfer = createTransfer()
+        transfer.copyToTemporalFileIfNeeded(file, sourceFile, targetFile(TARGET_NAME).path)
+
+        transfer.deleteTemporalCopyUnlessConflict(ResultCode.SYNC_CONFLICT)
+
+        assertEquals(CONTENT, File(file.storagePath).readText())
+        assertEquals(CONTENT, sourceFile.readText())
+
+        transfer.deleteTemporalCopyUnlessConflict(ResultCode.OK)
+
+        assertFalse(File(file.storagePath).exists())
+        assertTrue(sourceFile.exists())
+    }
+
     companion object {
         private const val ACCOUNT_NAME = "user@nextcloud.example"
         private const val CONTENT = "local file content"

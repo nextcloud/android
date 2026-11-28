@@ -31,7 +31,9 @@ class UploadFileOperationFactory @Inject constructor(
         upload: OCUpload,
         progressListener: OnDatatransferProgressListener? = null,
         disableRetries: Boolean = true,
-        user: User = accountManager.user,
+        user: User = accountManager.getUser(upload.accountName).orElseThrow {
+            IllegalStateException("Upload account is unavailable")
+        },
         storageManager: FileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     ): UploadFileOperation = UploadFileOperation(
         uploadsStorageManager,

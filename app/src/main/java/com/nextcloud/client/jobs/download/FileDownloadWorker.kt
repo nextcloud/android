@@ -302,7 +302,7 @@ class FileDownloadWorker(
         var file: OCFile? = currentDownload?.file?.fileId?.let { currentUserFileStorageManager?.getFileById(it) }
 
         if (file == null) {
-            file = currentUserFileStorageManager?.getFileByDecryptedRemotePath(currentDownload?.file?.remotePath)
+            file = currentUserFileStorageManager?.getFileByEncryptedRemotePath(currentDownload?.file?.remotePath)
         }
 
         if (file == null) {

@@ -1734,7 +1734,8 @@ class FileDataStorageManager private constructor(
     fun retrieveRemotePathConsideringEncryption(file: OCFile): String? {
         if (!file.isEncrypted) return file.remotePath
 
-        return getEncryptedRemotePath(file.decryptedRemotePath ?: file.remotePath)
+        return getFileByEncryptedRemotePath(file.remotePath)?.remotePath
+            ?: getEncryptedRemotePath(file.decryptedRemotePath ?: file.remotePath)
     }
 
     fun getEncryptedRemotePath(decryptedRemotePath: String): String? =

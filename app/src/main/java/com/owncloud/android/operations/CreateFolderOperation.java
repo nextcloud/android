@@ -63,6 +63,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     protected String remotePath;
     private RemoteFile createdRemoteFolder;
     private volatile boolean encrypt = false;
+    private volatile boolean deferFailureToServerRollback;
     private final User user;
     private final Context context;
 
@@ -83,6 +84,10 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     public boolean shouldEncrypt() {
         return encrypt;
+    }
+
+    public void setDeferFailureToServerRollback(boolean value) {
+        deferFailureToServerRollback = value;
     }
 
     @Override
@@ -132,6 +137,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         String certificate = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.CERTIFICATE);
 
         String token = null;
+        boolean canCommit = true;
         Boolean metadataExists;
         DecryptedFolderMetadataFileV1 metadata;
         String encryptedRemotePath = null;
@@ -165,6 +171,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             String encryptedFileName = createRandomFileName(metadata);
             encryptedRemotePath = parent.getRemotePath() + encryptedFileName;
 
+            canCommit = false;
             RemoteOperationResult<String> result = new CreateFolderRemoteOperation(encryptedRemotePath,
                                                                                    true,
                                                                                    token)
@@ -194,6 +201,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                "",
                                                arbitraryDataProvider,
                                                user);
+                canCommit = true;
 
                 // unlock folder
                 if (token != null) {
@@ -234,6 +242,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
             return result;
         } catch (Exception e) {
+            if (deferFailureToServerRollback) {
+                return new RemoteOperationResult(e);
+            }
             if (!EncryptionUtils.unlockFolderV1(parent, client, token).isSuccess()) {
                 throw new RuntimeException("Could not clean up after failing folder creation!", e);
             }
@@ -257,7 +268,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             return new RemoteOperationResult(e);
         } finally {
             // unlock folder
-            if (token != null) {
+            if (token != null && (canCommit || !deferFailureToServerRollback)) {
                 RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolderV1(parent, client, token);
 
                 if (!unlockFolderResult.isSuccess()) {
@@ -274,6 +285,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     )
     private RemoteOperationResult encryptedCreateV2(OCFile parent, OwnCloudClient client) {
         String token = null;
+        boolean canCommit = true;
         Boolean metadataExists;
         DecryptedFolderMetadataFile metadata;
         String encryptedRemotePath = null;
@@ -283,7 +295,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         long counter = EncryptionUtils.E2E_V2_INITIAL_COUNTER;
         if (folderDepth != OCFileDepth.Root) {
             final var metadataObject = EncryptionUtils.downloadFolderMetadata(parent, client, context, user);
-            counter = E2ECounterHelper.INSTANCE.getCounter(context, parent, metadataObject);
+            counter = E2ECounterHelper.INSTANCE.getCounter(getStorageManager().getCapability(user), parent, metadataObject);
         }
 
         try {
@@ -309,6 +321,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             String encryptedFileName = createRandomFileName(metadata);
             encryptedRemotePath = parent.getRemotePath() + encryptedFileName;
 
+            canCommit = false;
             RemoteOperationResult<String> result = new CreateFolderRemoteOperation(encryptedRemotePath,
                                                                                    true,
                                                                                    token)
@@ -347,6 +360,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                              context,
                                                              user,
                                                              getStorageManager());
+                canCommit = true;
 
                 // unlock folder
                 final var unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
@@ -386,6 +400,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
             return result;
         } catch (Exception e) {
+            if (deferFailureToServerRollback) {
+                return new RemoteOperationResult(e);
+            }
             // TODO remove folder
 
             if (!EncryptionUtils.unlockFolder(parent, client, token).isSuccess()) {
@@ -410,7 +427,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             return new RemoteOperationResult(e);
         } finally {
             // unlock folder
-            if (token != null) {
+            if (token != null && (canCommit || !deferFailureToServerRollback)) {
                 RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parent, client, token);
 
                 if (!unlockFolderResult.isSuccess()) {
@@ -432,6 +449,11 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     }
 
     private boolean isFileExisting(DecryptedFolderMetadataFile metadata, String filename) {
+        for (String folderName : metadata.getMetadata().getFolders().values()) {
+            if (filename.equalsIgnoreCase(folderName)) {
+                return true;
+            }
+        }
         for (DecryptedFile file : metadata.getMetadata().getFiles().values()) {
             if (filename.equalsIgnoreCase(file.getFilename())) {
                 return true;

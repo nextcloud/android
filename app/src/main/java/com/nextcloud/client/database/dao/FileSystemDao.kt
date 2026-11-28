@@ -19,6 +19,20 @@ import com.owncloud.android.db.ProviderMeta
 interface FileSystemDao {
     @Query(
         """
+        SELECT filesystem.* FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME} AS filesystem
+        INNER JOIN ${ProviderMeta.ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME} AS folders
+            ON filesystem.${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID}
+                = folders.${ProviderMeta.ProviderTableMeta._ID}
+        WHERE folders.${ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT} = :accountName
+            AND filesystem.${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_REMOTE_PATH} = :remotePath
+            AND filesystem.${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD} = 1
+            AND filesystem.${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER} = 0
+        """
+    )
+    fun getHandledByRemotePath(remotePath: String, accountName: String): List<FilesystemEntity>
+
+    @Query(
+        """
     UPDATE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
     SET ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_REMOTE_PATH} = :remotePath
     WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath

@@ -8,6 +8,7 @@ package com.owncloud.android.ui.asynctasks
 
 import android.content.Context
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.extensions.webDavParentPath
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -15,7 +16,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.operations.upload.EncryptedLocalCopy
 import com.owncloud.android.utils.FileStorageUtils
+import java.io.IOException
+import java.io.File
 
 class GetRemoteFileTask(
     private val context: Context,
@@ -28,6 +32,32 @@ class GetRemoteFileTask(
     data class Result(val success: Boolean = false, val file: OCFile = OCFile("/"))
 
     override fun invoke(): Result {
+        val parentPath = fileUrl.webDavParentPath()
+        val parent = storageManager.getFileByEncryptedRemotePath(parentPath)
+        if (parent?.isEncrypted == true) {
+            val previous = storageManager.getFileByEncryptedRemotePath(fileUrl)?.takeUnless { it.isEncrypted }
+            val refresh = RefreshFolderOperation(
+                parent,
+                System.currentTimeMillis(),
+                false,
+                true,
+                storageManager,
+                user,
+                context
+            ).execute(client)
+            if (!refresh.isSuccess) throw IOException("Could not refresh encrypted file metadata: ${refresh.code}")
+            val encrypted = storageManager.getFileByEncryptedRemotePath(fileUrl)
+                ?.takeIf { it.isEncrypted } ?: throw IOException("Encrypted file is missing from refreshed metadata")
+            if (previous != null) {
+                EncryptedLocalCopy.discardRawCopy(
+                    previous,
+                    encrypted,
+                    File(FileStorageUtils.getSavePath(user.accountName))
+                )
+                storageManager.saveFile(encrypted)
+            }
+            return Result(true, encrypted)
+        }
         val result = ReadFileRemoteOperation(fileUrl).execute(client)
         if (result.isSuccess) {
             val remoteFile = result.getData().get(0) as RemoteFile

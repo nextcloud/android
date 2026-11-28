@@ -199,7 +199,8 @@ class BackgroundJobFactory @Inject constructor(
         autoUploadHelper = AutoUploadHelper(
             FileSystemRepository(dao = database.fileSystemDao(), uploadsStorageManager, context)
         ),
-        preferences = preferences
+        preferences = preferences,
+        clientRepository = clientRepository
     )
 
     private fun createAutoUploadRescanWorker(context: Context, params: WorkerParameters): AutoUploadRescanWorker =
@@ -268,6 +269,7 @@ class BackgroundJobFactory @Inject constructor(
             syncedFolderProvider,
             context,
             uploadFileOperationFactory,
+            clientRepository,
             params
         )
 

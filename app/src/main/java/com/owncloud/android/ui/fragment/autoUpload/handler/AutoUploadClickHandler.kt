@@ -92,7 +92,7 @@ class AutoUploadClickHandler(
         Log_OC.d(TAG, "deleting auto upload configuration: " + syncedFolder.remotePath)
 
         fragment.lifecycleScope.launch(Dispatchers.IO) {
-            fileUploadHelper.removeEntityFromUploadEntities(syncedFolder.id)
+            fileUploadHelper.removeEntityFromUploadEntities(syncedFolder.id, syncedFolder.account)
             persistence.deleteAutoUploadFolder(syncedFolder.id)
             withContext(Dispatchers.Main) {
                 val adapter = getAdapter()
@@ -148,8 +148,9 @@ class AutoUploadClickHandler(
             return
         }
 
+        val accountName = item.account ?: return
         fragment.lifecycleScope.launch(Dispatchers.IO) {
-            fileUploadHelper.removeEntityFromUploadEntities(item.id)
+            fileUploadHelper.removeEntityFromUploadEntities(item.id, accountName)
         }
     }
 
