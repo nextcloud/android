@@ -14,11 +14,13 @@ import android.provider.MediaStore
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.client.database.entity.UploadEntity
+import com.nextcloud.utils.extensions.isNonRetryable
 import com.nextcloud.utils.extensions.shouldSkipFile
 import com.owncloud.android.datamodel.AutoUploadFolder
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.AutoUploadFolderUtils
 import java.io.File
@@ -246,7 +248,7 @@ class FileSystemRepository(
         }
     }
 
-    private fun wasUploadFinished(
+    internal fun wasUploadFinished(
         entity: FilesystemEntity,
         syncedFolder: AutoUploadFolder,
         localPath: String,
@@ -254,8 +256,16 @@ class FileSystemRepository(
     ): Boolean {
         val upload = getUpload(entity, syncedFolder, localPath, file) ?: return true
 
-        return upload.status == UploadStatus.UPLOAD_SUCCEEDED.value ||
+        if (upload.status == UploadStatus.UPLOAD_SUCCEEDED.value ||
             upload.status == UploadStatus.UPLOAD_CANCELLED.value
+        ) {
+            return true
+        }
+
+        // A non-retryable result cannot succeed by scanning again. Keeping the file handled stops a conflict from
+        // being re-queued on every scan; resolving it in the upload list starts a new upload through FileUploadWorker.
+        val lastResult = upload.lastResult?.let { UploadResult.fromValue(it) }
+        return lastResult?.isNonRetryable() == true
     }
 
     private fun deleteUnfinishedUpload(

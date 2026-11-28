@@ -483,7 +483,6 @@ internal class BackgroundJobManagerImpl(
             .addContentUriTrigger(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true)
             .addContentUriTrigger(MediaStore.Video.Media.INTERNAL_CONTENT_URI, true)
             .addContentUriTrigger(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, true)
-            .addContentUriTrigger(MediaStore.Files.getContentUri("external"), true)
             .setTriggerContentUpdateDelay(Duration.ofSeconds(5))
             .setTriggerContentMaxDelay(Duration.ofSeconds(10))
             .build()

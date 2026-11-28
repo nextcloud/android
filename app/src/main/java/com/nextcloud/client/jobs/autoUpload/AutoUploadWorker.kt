@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.autoUpload
 
 import android.app.Notification
 import android.content.Context
+import android.os.BatteryManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -199,8 +200,12 @@ class AutoUploadWorker(
         return false
     }
 
-    private fun isWaitingForCharging(): Boolean =
-        syncedFolder.isChargingOnly && !powerManagementService.battery.isCharging
+    /**
+     * Uses the same signal as WorkManager's charging constraint. A different signal lets JobScheduler start the
+     * work while WorkManager stops it again, and the two reschedule each other in a loop.
+     */
+    private fun isWaitingForCharging(): Boolean = syncedFolder.isChargingOnly &&
+        context.getSystemService(BatteryManager::class.java)?.isCharging != true
 
     private suspend fun hasNothingToDo(): Boolean {
         if (repository.hasPendingFiles(syncedFolder)) {
