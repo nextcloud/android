@@ -20,6 +20,7 @@ import android.provider.DocumentsProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.preferences.AppLock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.HashUtil
 import com.nextcloud.utils.extensions.getSmallThumbnailKey
@@ -40,7 +41,6 @@ import com.owncloud.android.providers.documentstorage.open.DocumentOpener
 import com.owncloud.android.providers.documentstorage.query.DocumentLister
 import com.owncloud.android.providers.documentstorage.sync.DocumentNotifier
 import com.owncloud.android.providers.documentstorage.sync.FolderRefresher
-import com.owncloud.android.ui.activity.SettingsActivity
 import dagger.Lazy
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
@@ -78,8 +78,7 @@ class DocumentsStorageProvider : DocumentsProvider() {
     private val editor by lazy { DocumentEditor(appContext, resolver, notifier, folderRefresher, nameValidator) }
 
     private val isAppLocked: Boolean
-        get() = preferences.lockPreference in
-            listOf(SettingsActivity.LOCK_PASSCODE, SettingsActivity.LOCK_DEVICE_CREDENTIALS)
+        get() = preferences.lockPreference != AppLock.NONE
 
     override fun onCreate(): Boolean {
         AndroidInjection.inject(this)

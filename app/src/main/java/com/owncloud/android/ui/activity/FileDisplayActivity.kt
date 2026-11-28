@@ -318,11 +318,6 @@ class FileDisplayActivity :
 
         registerReceivers()
 
-        if (SettingsActivity.isBackPressed) {
-            Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
-            return
-        }
-
         initCurrentFileAndAccount()
     }
 
@@ -338,11 +333,6 @@ class FileDisplayActivity :
 
         restoreSearchStateIfNeeded()
         highlightCurrentNavigationItem()
-
-        if (SettingsActivity.isBackPressed) {
-            Log_OC.d(TAG, "User returned from settings activity, skipping reset content logic")
-            return
-        }
 
         isFileDisplayActivityResumed = true
 

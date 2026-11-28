@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/standard_quarter_padding"
-            android:text="@string/community_contribute_forum_text"
+            android:text="@string/community_contribute_forum_help"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/standard_quarter_padding"
-            android:text="@string/community_contribute_translate_text"
+            android:text="@string/community_contribute_translate_app"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView

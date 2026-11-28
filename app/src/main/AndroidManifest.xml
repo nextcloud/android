@@ -347,11 +347,6 @@
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".ui.activity.ExtendedSettingsActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:exported="false"
-            android:theme="@style/Theme.NoBackground" />
-        <activity
             android:name=".ui.activity.ReceiveExternalFilesActivity"
             android:excludeFromRecents="true"
             android:exported="true"
@@ -374,7 +369,6 @@
         </activity>
         <activity
             android:name=".ui.activity.SettingsActivity"
-            android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:theme="@style/PreferenceTheme" />
         <activity

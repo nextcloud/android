@@ -6,12 +6,14 @@
  */
 package com.nextcloud.client.preferences
 
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
+import com.owncloud.android.R
 
-enum class DarkMode {
-    DARK,
-    LIGHT,
-    SYSTEM;
+enum class DarkMode(@StringRes val summaryResId: Int) {
+    DARK(R.string.prefs_value_theme_dark),
+    LIGHT(R.string.prefs_value_theme_light),
+    SYSTEM(R.string.prefs_value_theme_system);
 
     fun setTheme() {
         AppCompatDelegate.setDefaultNightMode(toMode())

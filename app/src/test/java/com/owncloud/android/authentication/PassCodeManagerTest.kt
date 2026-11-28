@@ -8,8 +8,8 @@
 package com.owncloud.android.authentication
 
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.preferences.AppLock
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.ui.activity.SettingsActivity
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -35,21 +35,21 @@ class PassCodeManagerTest {
 
     @Test
     fun testLocked() {
-        every { appPreferences.lockPreference } returns SettingsActivity.LOCK_PASSCODE
+        every { appPreferences.lockPreference } returns AppLock.PASSCODE
         every { clockImpl.millisSinceBoot } returns 10000
         assertTrue("Passcode not requested", sut.passCodeShouldBeRequested(200))
     }
 
     @Test
     fun testPasscodeNotRequested_notEnabled() {
-        every { appPreferences.lockPreference } returns ""
+        every { appPreferences.lockPreference } returns AppLock.NONE
         every { clockImpl.millisSinceBoot } returns 10000
         assertFalse("Passcode requested but it shouldn't have been", sut.passCodeShouldBeRequested(200))
     }
 
     @Test
     fun testPasscodeNotRequested_unlockedRecently() {
-        every { appPreferences.lockPreference } returns SettingsActivity.LOCK_PASSCODE
+        every { appPreferences.lockPreference } returns AppLock.PASSCODE
         every { clockImpl.millisSinceBoot } returns 210
         assertFalse("Passcode requested but it shouldn't have been", sut.passCodeShouldBeRequested(200))
     }

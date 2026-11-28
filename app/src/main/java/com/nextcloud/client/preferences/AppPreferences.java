@@ -128,8 +128,9 @@ public interface AppPreferences {
      */
     void setLastUploadPath(String path);
 
-    String getLockPreference();
-    void setLockPreference(String lockPreference);
+    @NonNull
+    AppLock getLockPreference();
+    void setLockPreference(@NonNull AppLock lock);
 
     /**
      * Set pass code composed of 4 digits (as strings).

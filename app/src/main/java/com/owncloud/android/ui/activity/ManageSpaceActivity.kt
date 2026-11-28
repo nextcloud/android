@@ -17,6 +17,7 @@ import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystem
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.preferences.AppLock
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityManageSpaceBinding
@@ -88,7 +89,7 @@ class ManageSpaceActivity :
             WorkManager.getInstance(this@ManageSpaceActivity).cancelAllWork()
 
             val lockPref = preferences.lockPreference
-            val passCodeEnable = SettingsActivity.LOCK_PASSCODE == lockPref
+            val passCodeEnable = lockPref == AppLock.PASSCODE
             var passCodeDigits = arrayOfNulls<String>(4)
             if (passCodeEnable) {
                 passCodeDigits = preferences.passCode

@@ -9,9 +9,9 @@ package com.owncloud.android.authentication
 
 import androidx.test.core.app.launchActivity
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.preferences.AppLock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.test.TestActivity
-import com.owncloud.android.ui.activity.SettingsActivity
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -41,7 +41,7 @@ class PassCodeManagerIT {
     @Test
     fun testResumeDuplicateActivity() {
         // set locked state
-        every { appPreferences.lockPreference } returns SettingsActivity.LOCK_PASSCODE
+        every { appPreferences.lockPreference } returns AppLock.PASSCODE
         every { appPreferences.lockTimestamp } returns 200
         every { clockImpl.millisSinceBoot } returns 10000
 

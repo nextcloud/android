@@ -12,7 +12,6 @@ import androidx.preference.TwoStatePreference
 import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
-import com.owncloud.android.ui.activity.SettingsActivity.Companion.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
 import com.owncloud.android.ui.activity.settings.util.findThemedCategory
 import com.owncloud.android.ui.activity.settings.util.setOnClickAction
 import com.owncloud.android.ui.activity.settings.util.startNavigatorScreen
@@ -57,6 +56,7 @@ class AutoUploadSettingsCategory(
     }
 
     companion object {
+        const val SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI"
         private const val CATEGORY_KEY = "synced_folders_category"
         private const val UPLOAD_ON_WIFI_KEY = "synced_folder_on_wifi"
         private const val CONFIGURE_FOLDERS_KEY = "synced_folders_configure_folders"

@@ -8,21 +8,15 @@ package com.owncloud.android.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.activity.addCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.os.postDelayed
 import androidx.fragment.app.commit
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.settings.SettingsFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.seconds
 
 class SettingsActivity :
     AppCompatActivity(),
@@ -35,7 +29,6 @@ class SettingsActivity :
         super.onCreate(savedInstanceState)
 
         setupActionBar()
-        registerBackPressedCallback()
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
@@ -67,34 +60,5 @@ class SettingsActivity :
         val backIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_back, null) ?: return
 
         viewThemeUtils.androidx.themeActionBar(this, actionBar, getString(R.string.actionbar_settings), backIcon)
-    }
-
-    private fun registerBackPressedCallback() {
-        onBackPressedDispatcher.addCallback(this) {
-            isBackPressed = true
-            Handler(Looper.getMainLooper()).postDelayed(BACK_PRESSED_RESET_DELAY.inWholeMilliseconds) {
-                Log_OC.d(TAG, "User returned from settings activity, reset onBackPressed flag.")
-                isBackPressed = false
-            }
-
-            finish()
-        }
-    }
-
-    companion object {
-        private val TAG: String = SettingsActivity::class.java.simpleName
-        private val BACK_PRESSED_RESET_DELAY = 2.seconds
-
-        const val PREFERENCE_LOCK = "lock"
-
-        const val LOCK_NONE = "none"
-        const val LOCK_PASSCODE = "passcode"
-        const val LOCK_DEVICE_CREDENTIALS = "device_credentials"
-
-        const val PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications"
-
-        const val SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI = "SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI"
-
-        var isBackPressed = false
     }
 }
